@@ -2,65 +2,37 @@ Sup this is a LE but with better ui and also the assets images is not my is a ot
 
 ## Credits
 
-- Mic'd Up Team
-Mod Creator:
-Verwex
+Mic'd Up Team 
+* Mod Creator: Verwex
 
-Additional Programmers:
-KadeDev
-Ash237
-Haya
-TentaRJ 
-and Rozebud
+* Additional Programmers: KadeDev, Ash237, Haya, TentaRJ and Rozebud
 
-Additional Artists:
-Sector03
+* Additional Artists: Sector03
 
-- Saw Engine Team
+Saw Engine Team
+* Mod Creator: M.A. Jigsaw
 
-Mod Creator:
-M.A. Jigsaw
+FNF Beat Team
+* Main Programmer: Luis Com S
 
-- FNF Beat Team
+* Additional Programmer: Gui iago
 
-Main Programmer:
-Luis Com S
+* Director / Artist: AquaStrukr
 
-Additional Programmer:
-Gui iago
+* Artist: NoobZiito
 
-Director / Artist:
-AquaStrukr
+* Logo: Cranile
 
-Artist:
-NoobZiito
+* Guns Mania Chart: Cyaan
 
-Logo:
-Cranile
+* Rich Predence Header Design: asho
 
-Guns Mania Chart:
-Cyaan
-
-Rich Predence Header Design:
-asho
-
-Menu Remix:
-Lenineth
+* Menu Remix: Lenineth
 
 ## Some Code
 
-- Kade!Engine
-
-New Options:
-YOUK-dev
-`Flash on x10 combo`
-`Gf voice on x10 combo`
-
-plz hlep me fix the bug :(
-
-PSYCH ENGINE TEAM
-
-umm idk :v
+Kade!Engine
+* New Options: YOUK-dev for Flash on x10 combo Gf voice on x10 combo
 
 ## And that's all I guess.
 
