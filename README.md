@@ -5,39 +5,65 @@ Sup this is a LE but with better ui and also the assets images is not my is a ot
 - Mic'd Up Team
 Mod Creator:
 Verwex
+
 Additional Programmers:
 KadeDev
 Ash237
 Haya
 TentaRJ 
 and Rozebud
+
 Additional Artists:
 Sector03
 
 - Saw Engine Team
+
 Mod Creator:
 M.A. Jigsaw
 
-- Saw Engine Team
-Mod Creator:
-M.A. Jigsaw
+- FNF Beat Team
 
-- Saw Engine Team
 Main Programmer:
 Luis Com S
+
 Additional Programmer:
 Gui iago
+
 Director / Artist:
 AquaStrukr
+
 Artist:
 NoobZiito
+
 Logo:
-Cyaan:
-Guns Mania Chart
+Cranile
+
+Guns Mania Chart:
+Cyaan
+
 Rich Predence Header Design:
 asho
+
 Menu Remix:
 Lenineth
+
+## Some Code
+
+- Kade!Engine
+
+New Options:
+YOUK-dev
+`Flash on x10 combo`
+`Gf voice on x10 combo`
+
+plz hlep me fix the bug :(
+
+PSYCH ENGINE TEAM
+
+umm idk :v
+
+## And that's all I guess.
+
 
 ![Logo](art/Logo.png)
 
