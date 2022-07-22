@@ -54,6 +54,11 @@ class MainMenuState extends MusicBeatState
 
 		persistentUpdate = persistentDraw = true;
 
+		if(utilities.Options.getData("Theme/Main/mBG_Main"))
+			bg = new FlxSprite(-80).loadGraphic(Paths.image('Theme/Main/mBG_Main'));
+		else
+			bg = new FlxSprite(-80).makeGraphic(1286, 730, FlxColor.fromString("0xFFAA00AA"), false, "optimizedMenuBG");
+
 		bg.scrollFactor.x = 0;
 		bg.scrollFactor.y = 0.16;
 		bg.setGraphicSize(Std.int(bg.width * 1.1));

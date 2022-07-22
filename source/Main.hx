@@ -12,6 +12,9 @@ import openfl.Lib;
 import openfl.display.FPS;
 import openfl.display.Sprite;
 import openfl.events.Event;
+import flixel.util.FlxColor;
+import openfl.display.Bitmap;
+
 
 class Main extends Sprite
 {
@@ -24,6 +27,7 @@ class Main extends Sprite
 	var startFullscreen:Bool = false; // Whether to start the game in fullscreen on desktop targets
 
 	// You can pretty much ignore everything from here on - your code should go in your states.
+	public static var watermark:Sprite;
 
 	public static function main():Void
 	{
@@ -82,6 +86,15 @@ class Main extends Sprite
 		display = new SimpleInfoDisplay(10, 3, 0xFFFFFF, "_sans");
 		addChild(display);
 		#end
+
+		var bitmapData = Assets.getBitmapData("assets/images/hell.png");
+
+		watermark = new Sprite();
+		watermark.addChild(new Bitmap(bitmapData)); // Sets the graphic of the sprite to a Bitmap object, which uses our embedded BitmapData class.
+		watermark.alpha = 0.4;
+		watermark.x = Lib.application.window.width - 10 - watermark.width;
+		watermark.y = Lib.application.window.height - 10 - watermark.height;
+		addChild(watermark);
 	}
 
 	public static var display:SimpleInfoDisplay;
@@ -94,6 +107,12 @@ class Main extends Sprite
 	public static function toggleMem(memEnabled:Bool):Void
 	{
 		display.infoDisplayed[1] = memEnabled;
+	}
+
+	public function changeFPSColor(color:FlxColor)
+	{
+		display.textColor = color;
+		display.textColor = color;
 	}
 	
 	public static function toggleVers(versEnabled:Bool):Void
@@ -115,5 +134,10 @@ class Main extends Sprite
 	public function getFPSCap():Float
 	{
 		return openfl.Lib.current.stage.frameRate;
+	}
+
+	public function getFPS():Float
+	{
+		return display.currentFPS;
 	}
 }
