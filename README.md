@@ -1,3 +1,42 @@
+Sup this is a LE but with better ui and also the assets images is not my is a others engine.
+
+## Credits
+
+Mic'd Up Team 
+* Mod Creator: Verwex
+
+* Additional Programmers: KadeDev, Ash237, Haya, TentaRJ and Rozebud
+
+* Additional Artists: Sector03
+
+Saw Engine Team
+* Mod Creator: M.A. Jigsaw
+
+FNF Beat Team
+* Main Programmer: Luis Com S
+
+* Additional Programmer: Gui iago
+
+* Director / Artist: AquaStrukr
+
+* Artist: NoobZiito
+
+* Logo: Cranile
+
+* Guns Mania Chart: Cyaan
+
+* Rich Predence Header Design: asho
+
+* Menu Remix: Lenineth
+
+## Some Code
+
+Kade!Engine
+* New Options: YOUK-dev for Flash on x10 combo Gf voice on x10 combo
+
+## And that's all I guess.
+
+
 ![Logo](art/Logo.png)
 
 This is the repository for Leather Engine, an engine created for making and playing mods for Friday Night Funkin'.
