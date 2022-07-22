@@ -1,0 +1,12 @@
+Leather Engine,25,50,70,100
+Psych Engine / Kade Engine,23,45,90,135
+Friday Night Funkin',16,33,124,149
+Andromeda,25,43,85,115
+Vanilla like,16,32,123,148
+Quaver / ITG,21,43,102,135
+Judge Four,22,45,90,135
+Judge Six,15,30,59,89
+JUSTICE,4,9,18,27
+Forever,25,50,100,120
+Marvelous & Sick only,25,50,0,0
+Marvelous only,25,0,0,0
