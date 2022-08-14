@@ -70,6 +70,7 @@ import game.Song;
 import utilities.CoolUtil;
 import substates.PauseSubState;
 import substates.GameOverSubstate;
+import substates.GitarooPause;
 import game.Highscore;
 import openfl.utils.Assets as OpenFlAssets;
 
@@ -238,7 +239,7 @@ class PlayState extends MusicBeatState
 	];
 
 	//Sexy Stuff ( ͡° ͜ʖ ͡°)
-	//public static var showNoteTimeHitbox:Bool = false;
+	public static var changedDifficulty:Bool = false;
 
 	public var ratingText:FlxText;
 
@@ -770,7 +771,7 @@ class PlayState extends MusicBeatState
 
 			scoreTxt = new FlxText(0, healthBarBG.y + funnyBarOffset, 0, "", 20);
 			scoreTxt.screenCenter(X);
-			scoreTxt.setFormat(Paths.font("Koda135759-vmm2O.ttf"), scoreTxtSize, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
+			//scoreTxt.setFormat(Paths.font("Koda135759-vmm2O.ttf"), scoreTxtSize, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
 			scoreTxt.scrollFactor.set();
 
 			if(utilities.Options.getData("biggerScoreInfo"))
@@ -784,27 +785,27 @@ class PlayState extends MusicBeatState
 				infoTxtSize = 20;
 
 			infoTxt = new FlxText(0, 0, 0, SONG.song + " - " + storyDifficultyStr + (utilities.Options.getData("botplay") ? " (BOT)" : ""), 20);
-			infoTxt.setFormat(Paths.font("Koda135759-vmm2O.ttf"), infoTxtSize, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
+			//infoTxt.setFormat(Paths.font("Koda135759-vmm2O.ttf"), infoTxtSize, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
 			infoTxt.screenCenter(X);
 			
 			infoTxt.scrollFactor.set();
 			infoTxt.cameras = [camHUD];
 
-			switch(funnyTimeBarStyle.toLowerCase())
+			switch (funnyTimeBarStyle.toLowerCase())
 			{
 				default: // includes 'leather engine'
 					timeBarBG = new FlxSprite(0, healthBarPosY).loadGraphic(Paths.image('ui skins/' + SONG.ui_Skin + '/other/healthBar', 'shared'));
 					timeBarBG.screenCenter(X);
 					timeBarBG.scrollFactor.set();
 					timeBarBG.pixelPerfectPosition = true;
-					
-					if(utilities.Options.getData("downscroll"))
+
+					if (utilities.Options.getData("downscroll"))
 						timeBarBG.y = FlxG.height - (timeBarBG.height + 1);
 					else
 						timeBarBG.y = 1;
-					
+
 					add(timeBarBG);
-					
+
 					timeBar = new FlxBar(timeBarBG.x + 4, timeBarBG.y + 4, LEFT_TO_RIGHT, Std.int(timeBarBG.width - 8), Std.int(timeBarBG.height - 8), this,
 						'time', 0, FlxG.sound.music.length);
 					timeBar.scrollFactor.set();
@@ -812,6 +813,39 @@ class PlayState extends MusicBeatState
 					timeBar.pixelPerfectPosition = true;
 					timeBar.numDivisions = 400;
 					add(timeBar);
+
+					infoTxt.setFormat(Paths.font("vcr.ttf"), infoTxtSize, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
+
+					scoreTxt.setFormat(Paths.font("vcr.ttf"), scoreTxtSize, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
+
+					if (utilities.Options.getData("downscroll"))
+						infoTxt.y = timeBarBG.y - timeBarBG.height - 1;
+					else
+						infoTxt.y = timeBarBG.y + timeBarBG.height + 1;
+				case "touhou project":
+					timeBarBG = new FlxSprite(0, healthBarPosY).loadGraphic(Paths.image('ui skins/' + SONG.ui_Skin + '/other/healthBar', 'shared'));
+					timeBarBG.screenCenter(X);
+					timeBarBG.scrollFactor.set();
+					timeBarBG.pixelPerfectPosition = true;
+
+					if (utilities.Options.getData("downscroll"))
+						timeBarBG.y = FlxG.height - (timeBarBG.height + 1);
+					else
+						timeBarBG.y = 1;
+
+					add(timeBarBG);
+
+					timeBar = new FlxBar(timeBarBG.x + 4, timeBarBG.y + 4, LEFT_TO_RIGHT, Std.int(timeBarBG.width - 8), Std.int(timeBarBG.height - 8), this,
+						'time', 0, FlxG.sound.music.length);
+					timeBar.scrollFactor.set();
+					timeBar.createFilledBar(FlxColor.BLACK, FlxColor.CYAN);
+					timeBar.pixelPerfectPosition = true;
+					timeBar.numDivisions = 400;
+					add(timeBar);
+
+					infoTxt.setFormat(Paths.font("Koda135759-vmm2O.ttf"), infoTxtSize, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
+
+					scoreTxt.setFormat(Paths.font("Koda135759-vmm2O.ttf"), scoreTxtSize, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
 
 					if(utilities.Options.getData("downscroll"))
 						infoTxt.y = timeBarBG.y - timeBarBG.height - 1;
@@ -838,26 +872,20 @@ class PlayState extends MusicBeatState
 					timeBar.numDivisions = 800;
 					add(timeBar);
 
-					if(utilities.Options.getData("biggerInfoText") == true)
-					{
-						infoTxt.borderSize = 2;
-						infoTxt.size = 32;
-					}
-					else
-					{
-						infoTxt.borderSize = 1.5;
-						infoTxt.size = 20;
-					}
-
+					infoTxt.setFormat(Paths.font("vcr.ttf"), infoTxtSize, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
+					infoTxt.borderSize = 2;
+					infoTxt.size = 32;
 					infoTxt.y = timeBarBG.y - (infoTxt.height / 4);
-				case "old kade engine":
-					timeBarBG = new FlxSprite(0, healthBarPosY).loadGraphic(Paths.image('ui skins/' + SONG.ui_Skin + '/other/healthBar', 'shared'));
+
+					scoreTxt.setFormat(Paths.font("vcr.ttf"), scoreTxtSize, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
+				case "lore engine":
+					timeBarBG = new FlxSprite(0, healthBarPosY).loadGraphic(Paths.image('psychTimeBar', 'shared'));
 					timeBarBG.screenCenter(X);
 					timeBarBG.scrollFactor.set();
 					timeBarBG.pixelPerfectPosition = true;
 					
 					if(utilities.Options.getData("downscroll"))
-						timeBarBG.y = FlxG.height * 0.9 + 45;
+						timeBarBG.y = FlxG.height - 36;
 					else
 						timeBarBG.y = 10;
 					
@@ -866,24 +894,58 @@ class PlayState extends MusicBeatState
 					timeBar = new FlxBar(timeBarBG.x + 4, timeBarBG.y + 4, LEFT_TO_RIGHT, Std.int(timeBarBG.width - 8), Std.int(timeBarBG.height - 8), this,
 						'time', 0, FlxG.sound.music.length);
 					timeBar.scrollFactor.set();
+					timeBar.createFilledBar(FlxColor.BLACK, FlxColor.WHITE);
+					timeBar.pixelPerfectPosition = true;
+					timeBar.numDivisions = 800;
+					add(timeBar);
+
+					infoTxt.setFormat(Paths.font("vcr.ttf"), infoTxtSize, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
+					infoTxt.borderSize = 2;
+					infoTxt.size = 24;
+					infoTxt.y = 3;
+					infoTxt.y = timeBarBG.y - (infoTxt.height / 4);
+
+					scoreTxt.setFormat(Paths.font("vcr.ttf"), scoreTxtSize, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
+					scoreTxt.borderSize = 1.25;
+				case "old kade engine":
+					timeBarBG = new FlxSprite(0, healthBarPosY).loadGraphic(Paths.image('ui skins/' + SONG.ui_Skin + '/other/healthBar', 'shared'));
+					timeBarBG.screenCenter(X);
+					timeBarBG.scrollFactor.set();
+					timeBarBG.pixelPerfectPosition = true;
+
+					if (utilities.Options.getData("downscroll"))
+						timeBarBG.y = FlxG.height * 0.9 + 45;
+					else
+						timeBarBG.y = 10;
+
+					add(timeBarBG);
+
+					timeBar = new FlxBar(timeBarBG.x + 4, timeBarBG.y + 4, LEFT_TO_RIGHT, Std.int(timeBarBG.width - 8), Std.int(timeBarBG.height - 8), this,
+						'time', 0, FlxG.sound.music.length);
+					timeBar.scrollFactor.set();
 					timeBar.createFilledBar(FlxColor.GRAY, FlxColor.LIME);
 					timeBar.pixelPerfectPosition = true;
 					timeBar.numDivisions = 400;
 					add(timeBar);
 
+					infoTxt.setFormat(Paths.font("vcr.ttf"), infoTxtSize, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
+
+					scoreTxt.setFormat(Paths.font("vcr.ttf"), scoreTxtSize, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
+
 					infoTxt.y = timeBarBG.y;
 				case "new kade engine":// test this shit lol
-					timeBarBG = new FlxSprite(0, 10).loadGraphic(Paths.image('ui skins/' + SONG.ui_Skin + '/other/healthBar', 'shared'));
+					timeBarBG = new FlxSprite(0, healthBarPosY).loadGraphic(Paths.image('kadeTimeBar', 'shared'));
 					timeBarBG.screenCenter(X);
 					timeBarBG.scrollFactor.set();
-					
-					if(utilities.Options.getData("downscroll"))
-						timeBarBG.y = FlxG.height * 0.9 + 35;
+					timeBarBG.pixelPerfectPosition = true;
+
+					if (utilities.Options.getData("downscroll"))
+						timeBarBG.y = FlxG.height * 0.9 + 45;
 					else
 						timeBarBG.y = 10;
-					
+
 					add(timeBarBG);
-					
+
 					timeBar = new FlxBar(640 - (Std.int(timeBarBG.width - 100) / 2), timeBarBG.y + 4, LEFT_TO_RIGHT, Std.int(timeBarBG.width - 100),
 					    Std.int(timeBarBG.height + 6), this, 'time', 0, FlxG.sound.music.length);
 					timeBar.scrollFactor.set();
@@ -891,7 +953,11 @@ class PlayState extends MusicBeatState
 					//timeBar.numDivisions = 400;
 					add(timeBar);
 
-					infoTxt.y = 10;
+					infoTxt.setFormat(Paths.font("vcr.ttf"), infoTxtSize, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
+
+					scoreTxt.setFormat(Paths.font("vcr.ttf"), scoreTxtSize, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
+
+					infoTxt.y = timeBarBG.y;
 			}
 
 			timeBar.cameras = [camHUD];
@@ -2665,6 +2731,14 @@ class PlayState extends MusicBeatState
 			persistentDraw = true;
 			paused = true;
 
+			//is back baby
+			// 1 / 1000 chance for Gitaroo Man easter egg
+			if (FlxG.random.bool(0.1))
+			{
+				trace('GITAROO MAN EASTER EGG');
+				FlxG.switchState(new GitarooPause());
+			}
+			else
 			openSubState(new PauseSubState(boyfriend.getScreenPosition().x, boyfriend.getScreenPosition().y));
 		
 			#if discord_rpc
@@ -2874,6 +2948,7 @@ class PlayState extends MusicBeatState
 
 				SONG.keyCount = ogKeyCount;
 				SONG.playerKeyCount = ogPlayerKeyCount;
+				changedDifficulty = false;
 
 				FlxG.switchState(new StoryMenuState());
 
@@ -3823,19 +3898,6 @@ class PlayState extends MusicBeatState
 		{
 			if(note.shouldHit && !note.isSustainNote)
 			{
-				/*if(!utilities.Options.getData("showNoteTimeHitbox")){
-					var hitSprite:FlxSprite = new FlxSprite(note.x + (note.width / 2) - 4, note.y + (note.height / 2) - 4).makeGraphic(8,8,FlxColor.WHITE);
-					hitSprite.cameras = [camHUD];
-					hitSprite.scrollFactor.set();
-					add(hitSprite);
-					new FlxTimer().start(1, function(_) {
-						FlxTween.tween(hitSprite, {alpha:0}, 0.25, {onComplete: function(_) {
-							hitSprite.kill();
-							hitSprite.destroy();
-						}});
-					});
-				}*/
-
 				combo += 1;
 				popUpScore(note.strumTime, note.noteData % SONG.playerKeyCount, setNoteDiff);
 
@@ -4546,6 +4608,9 @@ class PlayState extends MusicBeatState
 			default: // includes 'leather engine'
 				infoTxt.text = SONG.song + " - " + storyDifficultyStr + ' (${FlxStringUtil.formatTime(seconds, false)})' + (utilities.Options.getData("botplay") ? " (BOT)" : "") + (utilities.Options.getData("noDeath") ? " (NO DEATH)" : "") + (playingReplay ? " (REPLAY)" : "");
 				infoTxt.screenCenter(X);
+			case "lore engine":
+				infoTxt.text = SONG.song + " - " + ' ($storyDifficultyStr)' + ' (${FlxStringUtil.formatTime(seconds, false)})' + (utilities.Options.getData("botplay") ? " (BOT)" : "") + (utilities.Options.getData("noDeath") ? " (NO DEATH)" : "") + (playingReplay ? " (REPLAY)" : "");
+				infoTxt.screenCenter(X);
 			case "psych engine":
 				infoTxt.text = '${FlxStringUtil.formatTime(seconds, false)}' + (utilities.Options.getData("botplay") ? " (BOT)" : "") + (utilities.Options.getData("noDeath") ? " (NO DEATH)" : "") + (playingReplay ? " (REPLAY)" : "");
 				infoTxt.screenCenter(X);
@@ -4715,6 +4780,9 @@ class PlayState extends MusicBeatState
 					var character:Character = getCharFromEvent(event[2]);
 	
 					var anim:String = "idle";
+
+					var time:Float = Std.parseFloat(event[2]);
+					if(Math.isNaN(time) || time <= 0) time = 0.6;
 	
 					if(event[3] != "")
 						anim = event[3];

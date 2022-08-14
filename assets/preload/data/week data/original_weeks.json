@@ -13,7 +13,7 @@
                 "gf"
             ],
             "weekTitle": "",
-            "backgroundColor":[249, 207, 81],
+            "backgroundColor":[186, 49, 104],
             "difficulties": [
                 ["easy", "default/easy"],
                 ["normal", "default/normal"],
@@ -33,7 +33,7 @@
                 "gf"
             ],
             "weekTitle": "Daddy Dearest",
-            "backgroundColor":[249, 207, 81],
+            "backgroundColor":[199, 111, 211],
             "difficulties": [
                 ["easy", "default/easy"],
                 ["normal", "default/normal"],
@@ -45,6 +45,7 @@
             "songs": [
                 "Spookeez",
                 "South",
+                "Shiver",
                 "Monster"
             ],
             "characters": [
@@ -53,7 +54,7 @@
                 "gf"
             ],
             "weekTitle": "Spooky Month",
-            "backgroundColor":[249, 207, 81],
+            "backgroundColor":[226, 147, 30],
             "difficulties": [
                 ["easy", "default/easy"],
                 ["normal", "default/normal"],
@@ -73,7 +74,7 @@
                 "gf"
             ],
             "weekTitle": "Pico",
-            "backgroundColor":[249, 207, 81],
+            "backgroundColor":[205, 229, 112],
             "difficulties": [
                 ["easy", "default/easy"],
                 ["normal", "default/normal"],
@@ -93,7 +94,7 @@
                 "gf"
             ],
             "weekTitle": "Mommy Must Murder",
-            "backgroundColor":[249, 207, 81],
+            "backgroundColor":[231, 109, 166],
             "difficulties": [
                 ["easy", "default/easy"],
                 ["normal", "default/normal"],
@@ -113,7 +114,7 @@
                 "gf"
             ],
             "weekTitle": "Red Snow",
-            "backgroundColor":[249, 207, 81],
+            "backgroundColor":[255, 255, 255],
             "difficulties": [
                 ["easy", "default/easy"],
                 ["normal", "default/normal"],
@@ -133,7 +134,7 @@
                 "gf"
             ],
             "weekTitle": "Hating Simulator Ft. Moawling",
-            "backgroundColor":[249, 207, 81],
+            "backgroundColor":[255, 170, 111],
             "difficulties": [
                 ["easy", "default/easy"],
                 ["normal", "default/normal"],
@@ -153,7 +154,7 @@
                 "gf"
             ],
             "weekTitle": "Tankman",
-            "backgroundColor":[249, 207, 81],
+            "backgroundColor":[20, 20, 20],
             "difficulties": [
                 ["easy", "default/easy"],
                 ["normal", "default/normal"],

@@ -32,7 +32,6 @@ import debuggers.ChartingStateDev;
 import flixel.addons.display.FlxBackdrop;
 import flixel.util.FlxGradient;
 
-
 class OptionsMenu extends MusicBeatState
 {
 	var curSelected:Int = 0;
@@ -48,20 +47,18 @@ class OptionsMenu extends MusicBeatState
 			new PageOption("Gameplay", 0, "Gameplay"),
 			new PageOption("Graphics", 1, "Graphics"),
 			new PageOption("Tools (Very WIP)", 2, "Tools"),
-			new PageOption("Misc", 3, "Misc"),
+			new PageOption("Misc", 3, "Misc")
 		],
 		[
 			"Gameplay",
 			new PageOption("Back", 0, "Categories"),
 			new PageOption("Miscellaneous", 1, "Miscellaneous"),
-			//new PageOption("Rythm Games additions", 2, "Rythm Games additions"),
-			new PageOption("Sound Effects", 3, "Sound Effects"),
+			new PageOption("Sound Effects", 2, "Sound Effects"),
+			new PageOption("Rythm Games additions", 3, "Rythm Games additions"),
 			new BoolOption("Bot", "botplay", 4),
 			new BoolOption("Quick Restart", "quickRestart", 5),
 			new BoolOption("No Death", "noDeath", 6),
-			new BoolOption("Use Custom Scrollspeed", "useCustomScrollSpeed", 7),
-			new ScrollSpeedMenuOption("Custom Scroll Speed", 8),
-			new StringSaveOption("Hitsound", CoolUtil.coolTextFile(Paths.txt("hitsoundList")), 9, "hitsound")
+			new StringSaveOption("Hitsound", CoolUtil.coolTextFile(Paths.txt("hitsoundList")), 7, "hitsound")
 		],
 		[
 			"Graphics",
@@ -69,12 +66,11 @@ class OptionsMenu extends MusicBeatState
 			new PageOption("Note Options", 1, "Note Options"),
 			new PageOption("Info Display", 2, "Info Display"),
 			new PageOption("Optimizations", 3, "Optimizations"),
-			new PageOption("Appearance", 4, "Appearance"),
-			new MaxFPSOption("Max FPS", 5),
-			new BoolOption("Bigger Score Text", "biggerScoreInfo", 6),
-			new BoolOption("Bigger Info Text", "biggerInfoText", 7),
-			new StringSaveOption("Time Bar Style", ["leather engine", "psych engine", "new kade engine", "old kade engine"], 8, "timeBarStyle"),
-			new PageOption("Screen Effects", 9, "Screen Effects")
+			new GameSubstateOption("Max FPS", 4, substates.MaxFPSMenu),
+			new BoolOption("Bigger Score Text", "biggerScoreInfo", 5),
+			new BoolOption("Bigger Info Text", "biggerInfoText", 6),
+			new StringSaveOption("Time Bar Style", [ "leather engine", "touhou project", "psych engine", "lore engine", "new kade engine", "old kade engine"], 7, "timeBarStyle"),
+			new PageOption("Screen Effects", 8, "Screen Effects")
 		],
 		[
 			"Tools",
@@ -90,19 +86,18 @@ class OptionsMenu extends MusicBeatState
 		[
 			"Misc",
 			new PageOption("Back", 0, "Categories"),
-			new BoolOption("Prototype Title Screen", "oldTitle", 1),
-			new BoolOption("Friday Night Title Music", "nightMusic", 2),
-			new BoolOption("Watermarks", "watermarks", 3),
-			new BoolOption("Freeplay Music", "freeplayMusic", 4),
+			new PageOption("Game Mode", 1, "Game Mode"),
+			new BoolOption("Prototype Title Screen", "oldTitle", 2),
+			new BoolOption("Friday Night Title Music", "nightMusic", 3),
+			new BoolOption("Watermarks", "watermarks", 4),
+			new BoolOption("Freeplay Music", "freeplayMusic", 5),
 			#if discord_rpc
-			new BoolOption("Discord RPC", "discordRPC", 5),
+			new BoolOption("Discord RPC", "discordRPC", 6),
 			#end
-			new StringSaveOption("Cutscenes Play On", ["story","freeplay","both"], 6, "cutscenePlaysOn"),
-			new StringSaveOption("Play As", ["bf", "opponent"], 7, "playAs"),
-			new BoolOption("Disable Debug Menus", "disableDebugMenus", 10),
-			new BoolOption("Invisible Notes", "invisibleNotes", 11),
-			new ImportOldHighscoreOption("Import Old Scores", "Import Old Scores", 12)
-
+			new StringSaveOption("Cutscenes Play On", ["story","freeplay","both"], 7, "cutscenePlaysOn"),
+			new StringSaveOption("Play As", ["bf", "opponent"], 8, "playAs"),
+			new BoolOption("Disable Debug Menus", "disableDebugMenus", 9),
+			new GameSubstateOption("Import Old Scores", 11, substates.ImportHighscoresSubstate)
 		],
 		[
 			"Optimizations",
@@ -123,13 +118,14 @@ class OptionsMenu extends MusicBeatState
 			new DisplayFontOption("Display Font", ["_sans", OpenFLAssets.getFont(Paths.font("vcr.ttf")).fontName, OpenFLAssets.getFont(Paths.font("Koda135759-vmm2O.ttf")).fontName, OpenFLAssets.getFont(Paths.font("pixel.otf")).fontName], 6, "infoDisplayFont"),
 			new BoolOption("FPS Counter", "fpsCounter", 3),
 			new BoolOption("Memory Counter", "memoryCounter", 4),
-			new BoolOption("Version Display", "versionDisplay", 4)
+			new BoolOption("Version Display", "versionDisplay", 4),
+			new BoolOption("FPS Rainbow", "rainbowFPS", 5)
 		],
 		[
 			"Judgements",
 			new PageOption("Back", 0, "Gameplay"),
-			new JudgementMenuOption("Timings", 1),
-			new StringSaveOption("Rating Mode", ["psych", "mic'd up", "simple", "simple +", "modding plus", "complex"], 2, "ratingType"),
+			new GameSubstateOption("Timings", 1, substates.JudgementMenu),
+			new StringSaveOption("Rating Mode", ["psych", "mic'd up", "grafex",  "mania",  "forever", "andromeda", "simple", "simple +", "modding plus", "complex"], 2, "ratingType"),
 			new BoolOption("Marvelous Ratings", "marvelousRatings", 3),
 			new BoolOption("Show Rating Count", "sideRatings", 4)
 		],
@@ -141,20 +137,18 @@ class OptionsMenu extends MusicBeatState
 			new BoolOption("Shit gives Miss", "missOnShit", 5),
 			new BoolOption("Ghost Tapping", "ghostTapping", 9),
 			new BoolOption("Gain Misses on Sustains", "missOnHeldNotes", 10),
-			new BoolOption("No Miss", "noHit", 6),
 			new BoolOption("Reset Button", "resetButton", 7)
 		],
 		[
 			"Note Options",
 			new PageOption("Back", 0, "Graphics"),
-			new NoteBGAlphaMenuOption("Note BG Alpha", 1),
+			new GameSubstateOption("Note BG Alpha", 1, substates.NoteBGAlphaMenu),
 			new BoolOption("Enemy Note Glow", "enemyStrumsGlow", 2),
 			new BoolOption("Player Note Splashes", "playerNoteSplashes", 3),
 			new BoolOption("Enemy Note Splashes", "opponentNoteSplashes", 3),
 			new BoolOption("Note Accuracy Text", "displayMs", 4),
-			new BoolOption("Notes Per Second", "notesperSecond", 5),
-			new NoteColorMenuOption("Note Colors", 6),
-			new UISkinSelectOption("UI Skin", 7)
+			new GameSubstateOption("Note Colors", 5, substates.NoteColorSubstate),
+			new GameSubstateOption("UI Skin", 6, substates.UISkinSelect)
 		],
 		[
 			"Screen Effects",
@@ -167,15 +161,15 @@ class OptionsMenu extends MusicBeatState
 		[
 			"Miscellaneous",
 			new PageOption("Back", 0, "Gameplay"),
-			new ControlMenuSubStateOption("Binds", 1),
+			new GameSubstateOption("Binds", 1, substates.ControlMenuSubstate),
 			new BoolOption("Key Bind Reminders", "extraKeyReminders", 2),
-			new SongOffsetOption("Song Offset", 2),
+			new GameSubstateOption("Song Offset", 2, substates.SongOffsetMenu),
 			new PageOption("Judgements", 3, "Judgements"),
 			new PageOption("Input Options", 4, "Input Options"),
 			new BoolOption("Downscroll", "downscroll", 4),
 			new BoolOption("Middlescroll", "middlescroll", 5),
 			new BoolOption("Use Custom Scrollspeed", "useCustomScrollSpeed", 11),
-			new ScrollSpeedMenuOption("Custom Scroll Speed", 12)
+			new GameSubstateOption("Custom Scroll Speed", 12, substates.ScrollSpeedMenu)
 		],
 		[
 			"Rythm Games additions",
@@ -186,13 +180,15 @@ class OptionsMenu extends MusicBeatState
 			"Sound Effects",
 			new PageOption("Back", 0, "Gameplay"),
 			new BoolOption("Miss Sounds", "missSounds", 1),
-			new BoolOption("Combo Sound", "comboSound", 2)
+			new BoolOption("GF Combo Sounds", "comboSound", 2)
 		],
 		[
-			"Appearance",
-			new PageOption("Back", 0, "Appearance"),
-			new BoolOption("FPS Rainbow", "rainbowFPS", 1)
+			"Game Mode",
+			new PageOption("Back", 0, "Misc"),
+			new BoolOption("Invisible Notes", "invisibleNotes", 1),
+			new BoolOption("No Miss", "noHit", 2)
 		]
+		
 	];
 
 	public var page:FlxTypedGroup<Option> = new FlxTypedGroup<Option>();
@@ -250,14 +246,6 @@ class OptionsMenu extends MusicBeatState
 		inMenu = true;
 		instance.curSelected = 0;
 
-		var bruh = 0;
-
-		for (x in instance.page.members)
-		{
-			x.Alphabet_Text.targetY = bruh - instance.curSelected;
-			bruh++;
-		}
-
 		var curPage = instance.page;
 
 		curPage.clear();
@@ -282,6 +270,14 @@ class OptionsMenu extends MusicBeatState
 		}
 
 		inMenu = false;
+
+		var bruh = 0;
+
+		for (x in instance.page.members)
+		{
+			x.Alphabet_Text.targetY = bruh - instance.curSelected;
+			bruh++;
+		}
 	}
 
 	override function update(elapsed:Float)

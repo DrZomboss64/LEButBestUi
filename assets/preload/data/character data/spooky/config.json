@@ -42,6 +42,12 @@
             "animation_name": "spooky sing right",
             "fps": 24,
             "looped": false
+        },
+        {
+            "name": "hey",
+            "animation_name": "spooky kids YEAH!!",
+            "fps": 24,
+            "looped": false
         }
     ]
 }

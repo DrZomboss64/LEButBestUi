@@ -94,7 +94,7 @@ class Ratings
                     accuracy >= 5, // F
                     accuracy < 4, // G
                 ];
-            /*case "andromeda":
+            case "andromeda":
                 conditions = [
                     accuracy == 100, // ☆☆☆☆
                     accuracy >= 99, // ☆☆☆
@@ -113,7 +113,7 @@ class Ratings
                     accuracy < 55, // C-
                     accuracy < 50, // D+
                     accuracy < 45, // D
-                ];*/
+                ];
             case "simple +":
                 conditions = [
                     accuracy == 100, // S+
@@ -124,6 +124,38 @@ class Ratings
                     accuracy >= 10, // D
                     accuracy >= 2, // F
                     accuracy >= 0 // HOW
+                ];
+            case "mania": //Stolen From Grafex
+                conditions = [
+                    accuracy == 100, // X
+                    accuracy >= 95, // S
+                    accuracy >= 90, // A
+                    accuracy >= 80, // B
+                    accuracy >= 70, // C
+                    accuracy >= 60, // D
+                ];
+            case "grafex": //Stolen From Grafex again Also best engine https://github.com/JustXale/fnf-grafex
+                conditions = [
+                    accuracy == 100, // SS
+                    accuracy >= 98, // S+
+                    accuracy >= 97, // S
+                    accuracy >= 95, // S-
+                    accuracy >= 93, // A
+                    accuracy >= 85, // B
+                    accuracy >= 75, // C
+                    accuracy >= 65, // D
+                    accuracy >= 40, // F
+                ];
+            case "forever":
+                conditions = [
+                    accuracy >= 100, // S+
+                    accuracy >= 99.9, // S
+                    accuracy >= 90, // A
+                    accuracy >= 85, // B
+                    accuracy >= 80, // C
+                    accuracy >= 75, // D
+                    accuracy >= 70, // E
+                    accuracy >= 65, // F
                 ];
             case "modding plus":
                 conditions = [
@@ -170,7 +202,6 @@ class Ratings
                     accuracy >= 90, // A+
                     accuracy >= 80, // A
                     accuracy >= 79, // A-
-                    accuracy >= 69, // ( ͡° ͜ʖ ͡°)
                     accuracy >= 60, // B
                     accuracy >= 50, // C
                     accuracy >= 40, // D
@@ -280,7 +311,7 @@ class Ratings
                     if(misses >= 10)
                         missesRating = "CLEAR - ";
                 }
-            /*case "andromeda":
+            case "psych":
                 if(misses != null)
                 {
                     if(ratingsArray[0] > 0)
@@ -293,10 +324,10 @@ class Ratings
                         missesRating = " - " + "FC";
                     if(misses > 0 && misses < 10)
                         missesRating = " - " + "SDCB";
-                     else if(misses >= 10)
+                    else if(misses >= 10)
                         missesRating = " - " + "Clear";
-                }*/
-            case "psych":
+                }
+            case "grafex":
                 if(misses != null)
                 {
                     if(ratingsArray[0] > 0)
@@ -378,6 +409,42 @@ class Ratings
                             case 7:
                                 return missesRating + "HOW!?!?!";
                         }
+                    case "forever":
+                        switch(condition)
+                        {
+                            case 0:
+                                return missesRating + "S+";
+                            case 1:
+                                return missesRating + "S";
+                            case 2:
+                                return missesRating + "A";
+                            case 3:
+                                return missesRating + "B";
+                            case 4:
+                                return missesRating + "C";
+                            case 5:
+                                return missesRating + "D";
+                            case 6:
+                                return missesRating + "E";
+                            case 7:
+                                return missesRating + "F";
+                        }
+                    case "mania":
+                       switch(condition)
+                        {
+                            case 0:
+                                return missesRating + "X";
+                            case 1:
+                                return missesRating + "S";
+                            case 2:
+                                return missesRating + "A";
+                            case 3:
+                                return missesRating + "B";
+                             case 4:
+                                return missesRating + "C";
+                            case 5:
+                                return missesRating + "D";
+                        }
                     case "mic'd up":
                         switch(condition)
                         {
@@ -404,58 +471,56 @@ class Ratings
                             case 10:
                                 return "Rating: " + "A-";
                             case 11:
-                                return "Rating: " + "( ͡° ͜ʖ ͡°)";
-                            case 12:
                                 return "Rating: " + "B";
-                            case 13:
+                            case 12:
                                 return "Rating: " + "C";
-                            case 14:
+                            case 13:
                                 return "Rating: " + "D";
-                            case 15:
+                            case 14:
                                 return "Rating: " + "E";
-                            case 16:
+                            case 15:
                                 return "Rating: " + "F";
                         }
-                    /*case "andromeda":
+                    case "andromeda": // PLZ HLEP ME TO   FIX THE STAR!!!!
                         switch(condition)
                         {
                             case 0:
-                                return "Rating: " + "☆☆☆☆";
+                                return missesRating + "☆☆☆☆";
                             case 1:
-                                return "Rating: " + "☆☆☆";
+                                return missesRating + "☆☆☆";
                             case 2:
-                                return "Rating: " + "☆☆";
+                                return missesRating + "☆☆";
                             case 3:
-                                return "Rating: " + "☆";
+                                return missesRating + "☆";
                             case 4:
-                                return "Rating: " + "S+";
+                                return missesRating + "S+";
                             case 5:
-                                return "Rating: " + "S";
+                                return missesRating + "S";
                             case 6:
-                                return "Rating: " + "S-";
+                                return missesRating + "S-";
                             case 7:
-                                return "Rating: " + "A+";
+                                return missesRating + "A+";
                             case 8:
-                                return "Rating: " + "A";
+                                return missesRating + "A";
                             case 9:
-                                return "Rating: " + "A-";
+                                return missesRating + "A-";
                             case 10:
-                                return "Rating: " + "B+";
+                                return missesRating + "B+";
                             case 11:
-                                return "Rating: " + "B";
+                                return missesRating + "B";
                             case 12:
-                                return "Rating: " + "B-";
+                                return missesRating + "B-";
                             case 13:
-                                return "Rating: " + "C+";
+                                return missesRating + "C+";
                             case 14:
-                                return "Rating: " + "C";
+                                return missesRating + "C";
                             case 15:
-                                return "Rating: " + "C-";
+                                return missesRating + "C-";
                             case 16:
-                                return "Rating: " + "D";
+                                return missesRating + "D";
                             case 16:
-                                return "Rating: " + "D";
-                        }*/
+                                return missesRating + "D";
+                        }
                      case "modding plus":
                         switch(condition)
                         {
@@ -491,6 +556,28 @@ class Ratings
                                 return missesRating + " C";
                             case 15:
                                 return missesRating + " D";
+                        }
+                    case "grafex":
+                        switch(condition)
+                        {
+                            case 0:
+                                return "Rating: " + "SS" + missesRating;
+                            case 1:
+                                return "Rating: " + "S+" + missesRating;
+                            case 2:
+                                return "Rating: " + "S" + missesRating;
+                            case 3:
+                                return "Rating: " + "S-" + missesRating;
+                            case 4:
+                                return "Rating: " + "A" + missesRating;
+                            case 5:
+                                return "Rating: " + "B" + missesRating;
+                            case 6:
+                                return "Rating: " + "C" + missesRating;
+                            case 7:
+                                return "Rating: " + "D" + missesRating;
+                            case 8:
+                                return "Rating: " + "F" + missesRating;
                         }
                     case "psych":
                         switch(condition)
@@ -544,6 +631,21 @@ class Ratings
             return "N/A";
         else
             return "Rating: ?";
+
+        if(utilities.Options.getData("ratingType") != "forever")
+            return "N/A";
+        else
+            return "Rating: ?";
+
+        if(utilities.Options.getData("ratingType") != "grafex")
+            return "N/A";
+        else
+            return "Rating: ?";
+
+        if(utilities.Options.getData("ratingType") != "complex")
+            return "N/A";
+        else
+            return "N/A";
     }
 
     public static function getScore(rating:String)

@@ -1,0 +1,21 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TextureAtlas imagePath="3d leather pog.png">
+	<!-- Created with Adobe Animate version 22.0.0.93 -->
+	<!-- http://www.adobe.com/products/animate.html -->
+	<SubTexture name="Down instance 10000" x="365" y="1508" width="415" height="414" frameX="0" frameY="0" frameWidth="429" frameHeight="414"/>
+	<SubTexture name="Down instance 10001" x="864" y="1029" width="429" height="402" frameX="0" frameY="-12" frameWidth="429" frameHeight="414"/>
+	<SubTexture name="Idle instance 10000" x="781" y="1473" width="323" height="502" frameX="-34" frameY="0" frameWidth="469" frameHeight="504"/>
+	<SubTexture name="Idle instance 10001" x="781" y="1473" width="323" height="502" frameX="-34" frameY="0" frameWidth="469" frameHeight="504"/>
+	<SubTexture name="Idle instance 10002" x="1" y="1508" width="363" height="483" frameX="-22" frameY="-12" frameWidth="469" frameHeight="504"/>
+	<SubTexture name="Idle instance 10003" x="981" y="528" width="410" height="500" frameX="0" frameY="-3" frameWidth="469" frameHeight="504"/>
+	<SubTexture name="Idle instance 10004" x="544" y="1" width="451" height="498" frameX="-18" frameY="-6" frameWidth="469" frameHeight="504"/>
+	<SubTexture name="Idle instance 10005" x="544" y="1" width="451" height="498" frameX="-18" frameY="-6" frameWidth="469" frameHeight="504"/>
+	<SubTexture name="Left instance 10000" x="442" y="996" width="421" height="476" frameX="0" frameY="-19" frameWidth="474" frameHeight="495"/>
+	<SubTexture name="Left instance 10001" x="544" y="500" width="436" height="495" frameX="-38" frameY="0" frameWidth="474" frameHeight="495"/>
+	<SubTexture name="Right instance 10000" x="1" y="1036" width="400" height="471" frameX="-4" frameY="-55" frameWidth="404" frameHeight="526"/>
+	<SubTexture name="Right instance 10001" x="996" y="1" width="400" height="526" frameX="0" frameY="0" frameWidth="404" frameHeight="526"/>
+	<SubTexture name="Up instance 10000" x="1" y="569" width="440" height="466" frameX="-49" frameY="-49" frameWidth="542" frameHeight="567"/>
+	<SubTexture name="Up instance 10001" x="1" y="569" width="440" height="466" frameX="-49" frameY="-49" frameWidth="542" frameHeight="567"/>
+	<SubTexture name="Up instance 10002" x="1" y="1" width="542" height="567"/>
+	<SubTexture name="Up instance 10003" x="1" y="1" width="542" height="567"/>
+</TextureAtlas>

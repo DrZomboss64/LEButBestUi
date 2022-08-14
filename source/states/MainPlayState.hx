@@ -41,9 +41,9 @@ class MainPlayState extends MusicBeatState
 	var camFollowPos:FlxObject;
 
 	var bg:FlxSprite;
+	var background2:FlxSprite;
 	var logoBl:FlxSprite;
-	public var iconBG:FlxSprite;
-	public var icon:HealthIcon;
+	var char:FlxSprite;
 
 	var checker:FlxBackdrop = new FlxBackdrop(Paths.image('Theme/Play/Play_Checker'), 0.2, 0.2, true, true);
 	var gradientBar:FlxSprite = new FlxSprite(0, 0).makeGraphic(FlxG.width, 300, 0xFFfd719b);
@@ -101,13 +101,20 @@ class MainPlayState extends MusicBeatState
 
 		magenta.scrollFactor.x = 0;
 		magenta.scrollFactor.y = 0.18;
-		magenta.setGraphicSize(Std.int(magenta.width * 1.3));
+		magenta.setGraphicSize(Std.int(magenta.width * 1.179));
 		magenta.updateHitbox();
 		magenta.screenCenter();
 		magenta.visible = false;
 		magenta.antialiasing = true;
 		magenta.color = 0xFFfd719b;
 		add(magenta);
+
+		background2 = new FlxSprite().loadGraphic(Paths.image('menuDesat'));
+		background2.scrollFactor.set();
+		background2.screenCenter();
+		background2.visible = false;
+		background2.color = FlxColor.MAGENTA;
+		add(background2);
 
 		gradientBar = FlxGradient.createGradientFlxSprite(Math.round(FlxG.width), 512, [0x00ff0000, 0x558DE7E5, 0xAAE6F0A9], 1, 90, true);
 		gradientBar.y = FlxG.height - gradientBar.height;
@@ -176,7 +183,7 @@ class MainPlayState extends MusicBeatState
 			}, 1.4, {ease: FlxEase.expoInOut});
 		}
 
-		if(utilities.Options.getData("menuIcon"))
+		/*if(utilities.Options.getData("menuIcon"))
 		{
 			iconBG = new FlxSprite().loadGraphic(Paths.image('iconbackground'));
 			iconBG.scrollFactor.set();
@@ -280,6 +287,148 @@ class MainPlayState extends MusicBeatState
 			add(icon);
 			trace(iconBG.color);
 			trace(icon);
+		}*/
+
+		//thx to EIT for Custom Menus Tutorial UwU https://www.youtube.com/channel/UC4X_UAuj9BOpHgBHo8TvWoQ
+		switch (FlxG.random.int(1, 15))
+            {
+            case 1:
+			char = new FlxSprite(50, 250).loadGraphic(Paths.image('characters/3d leather pog', 'shared'));//put your cords and image here
+			char.frames = Paths.getSparrowAtlas('characters/3d leather pog', 'shared');//here put the name of the xml
+			char.animation.addByPrefix('idleLE', 'Idle instance 1', 24, true);//on 'idle normal' change it to your xml one
+			char.animation.play('idleLE');//you can rename the anim however you want to
+			char.scrollFactor.set();
+			char.flipX = false;//this is for flipping it to look left instead of right you can make it however you want
+			add(char);
+
+            case 2:
+			char = new FlxSprite(120, 200).loadGraphic(Paths.image('characters/totally not ron', 'shared'));
+			char.frames = Paths.getSparrowAtlas('characters/totally not ron', 'shared');
+			char.animation.addByPrefix('idleR', 'Idle instance 1', 24, true);
+			char.animation.play('idleR');
+			char.scrollFactor.set();
+			add(char);
+              
+			case 3:
+			char = new FlxSprite(70, 250).loadGraphic(Paths.image('characters/tankmanCaptain', 'shared'));
+			char.frames = Paths.getSparrowAtlas('characters/tankmanCaptain', 'shared');
+			char.animation.addByPrefix('idleT', 'Tankman Idle Dance instance 1', 24, true);
+			char.animation.play('idleT');
+			char.scrollFactor.set();
+			char.flipX = true;
+			add(char);
+
+			case 4:
+			char = new FlxSprite(70, 250).loadGraphic(Paths.image('characters/spooky_kids_assets', 'shared'));
+			char.frames = Paths.getSparrowAtlas('characters/spooky_kids_assets', 'shared');
+			char.animation.addByPrefix('idleSK', 'spooky dance idle', 24, true);
+			char.animation.play('idleSK');
+			char.scrollFactor.set();
+			char.flipX = false;
+			add(char);
+		
+			case 5:
+			char = new FlxSprite(70, 250).loadGraphic(Paths.image('characters/DADDY_DEAREST', 'shared'));
+			char.frames = Paths.getSparrowAtlas('characters/DADDY_DEAREST', 'shared');
+			char.animation.addByPrefix('idleDAD', 'Dad idle dance', 24, true);
+			char.animation.play('idleDAD');
+			char.scrollFactor.set();
+			char.flipX = false;
+			add(char);
+
+			case 6:
+			char = new FlxSprite(70, 250).loadGraphic(Paths.image('characters/Pico_FNF_assetss', 'shared'));
+			char.frames = Paths.getSparrowAtlas('characters/Pico_FNF_assetss', 'shared');
+			char.animation.addByPrefix('idleP', 'Pico Idle Dance', 24, true);
+			char.animation.play('idleP');
+			char.scrollFactor.set();
+			char.flipX = true;
+			add(char);
+
+			case 7:
+			char = new FlxSprite(70, 250).loadGraphic(Paths.image('characters/bfAndGF', 'shared'));
+			char.frames = Paths.getSparrowAtlas('characters/bfAndGF', 'shared');
+			char.animation.addByPrefix('idleBG', 'BF idle dance w gf', 24, true);
+			char.animation.play('idleBG');
+			char.scrollFactor.set();
+			char.flipX = true;
+			add(char);
+
+			case 8:
+			char = new FlxSprite(200, 450).loadGraphic(Paths.image('characters/spirit', 'shared'));
+			char.frames = Paths.getPackerAtlas('characters/spirit', 'shared');
+			char.animation.addByPrefix('idleSP', 'idle spirit_', 24, true);
+			char.animation.play('idleSP');
+			char.scrollFactor.set();
+			char.flipX = false;
+			char.setGraphicSize(Std.int(char.width * 6));
+			add(char);
+
+			case 9:
+			char = new FlxSprite(200, 450).loadGraphic(Paths.image('characters/senpai', 'shared'));
+			char.frames = Paths.getSparrowAtlas('characters/senpai', 'shared');
+			char.animation.addByPrefix('idleS', 'Senpai Idle', 24, true);
+			char.animation.play('idleS');
+			char.scrollFactor.set();
+			char.flipX = false;
+			char.setGraphicSize(Std.int(char.width * 6));
+			add(char);
+
+			case 10:
+			char = new FlxSprite(150, 400).loadGraphic(Paths.image('characters/senpai', 'shared'));
+			char.frames = Paths.getSparrowAtlas('characters/senpai', 'shared');
+			char.animation.addByPrefix('idleAS', 'Angry Senpai Idle', 24, true);
+			char.animation.play('idleAS');
+			char.scrollFactor.set();
+			char.flipX = false;
+			char.setGraphicSize(Std.int(char.width* 6));
+			add(char);
+
+			case 11:
+			char = new FlxSprite(-200, 250).loadGraphic(Paths.image('characters/mom_dad_christmas_assets', 'shared'));
+			char.frames = Paths.getSparrowAtlas('characters/mom_dad_christmas_assets', 'shared');
+			char.animation.addByPrefix('idlePC', 'Parent Christmas Idle', 24, true);
+			char.animation.play('idlePC');
+			char.scrollFactor.set();
+			char.flipX = false;
+			add(char);
+
+			case 12:
+			char = new FlxSprite(200, 450).loadGraphic(Paths.image('characters/bfPixel', 'shared'));
+			char.frames = Paths.getSparrowAtlas('characters/bfPixel', 'shared');
+			char.animation.addByPrefix('idleBFP', 'BF IDLE', 24, true);
+			char.animation.play('idleBFP');
+			char.scrollFactor.set();
+			char.flipX = true;
+			char.setGraphicSize(Std.int(char.width * 6));
+			add(char);
+
+			case 13:
+			char = new FlxSprite(70, 250).loadGraphic(Paths.image('characters/Monster_Assets', 'shared'));
+			char.frames = Paths.getSparrowAtlas('characters/Monster_Assets', 'shared');
+			char.animation.addByPrefix('idleM', 'monster idle', 24, true);
+			char.animation.play('idleM');
+			char.scrollFactor.set();
+			char.flipX = false;
+			add(char);
+
+			case 14:
+			char = new FlxSprite(70, 250).loadGraphic(Paths.image('characters/Mom_Assets', 'shared'));
+			char.frames = Paths.getSparrowAtlas('characters/Mom_Assets', 'shared');
+			char.animation.addByPrefix('idleMM', 'Mom Idle', 24, true);
+			char.animation.play('idleMM');
+			char.scrollFactor.set();
+			char.flipX = false;
+			add(char);
+
+			case 15:
+			char = new FlxSprite(70, 250).loadGraphic(Paths.image('characters/GF_assets', 'shared'));
+			char.frames = Paths.getSparrowAtlas('characters/GF_assets', 'shared');
+			char.animation.addByPrefix('idleGF', 'GF Dancing Beat0', 24, true);
+			char.animation.play('idleGF');
+			char.scrollFactor.set();
+			char.flipX = false;
+			add(char);
 		}
 
 		FlxG.camera.follow(camFollow, null, 0.06 * (60 / Main.display.currentFPS));
@@ -365,10 +514,10 @@ class MainPlayState extends MusicBeatState
 					}, 0.5, {ease: FlxEase.quadOut});					
 				}
 
-				if(utilities.Options.getData("menuIcon"))
+				/*if(utilities.Options.getData("menuIcon"))
 				{
 					FlxTween.tween(icon, {x: icon.x - 20, y: icon.y + 20}, 0.5, {ease: FlxEase.quadOut});
-				}
+				}*/
 	
 				selectedSomethin = true;
 			}
@@ -392,10 +541,10 @@ class MainPlayState extends MusicBeatState
 					}, 0.8, {ease: FlxEase.quadOut});
 				}
 
-				if(utilities.Options.getData("menuIcon"))
+				/*if(utilities.Options.getData("menuIcon"))
 				{
 					FlxTween.tween(icon, {x: icon.x - 10, y: icon.y + 10}, 0.8, {ease: FlxEase.quadOut});
-				}
+				}*/
 				
 				new FlxTimer().start(0.2, function(tmr:FlxTimer)
 				{
@@ -403,7 +552,8 @@ class MainPlayState extends MusicBeatState
 				});
 
 				if(utilities.Options.getData("flashingLights"))
-					FlxFlicker.flicker(magenta, 1.1, 0.15, false);
+					FlxFlicker.flicker(background2, 1.1, 0.15, false);
+					FlxFlicker.flicker(char, 1.1, 0.15, false);
 
 				menuItems.forEach(function(spr:FlxSprite)
 				{

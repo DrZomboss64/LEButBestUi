@@ -321,6 +321,7 @@ class PauseSubState extends MusicBeatSubstate
 					FlxTween.tween(scoreWarning, {alpha: 0, y: scoreWarning.y - 10}, 0.4, {ease: FlxEase.quartInOut, startDelay: 4});
 
 					warningAmountLols += 1;
+					FlxG.resetState();
 				case "play as opponent":
 					utilities.Options.setData("bf", "playAs");
 
@@ -353,6 +354,7 @@ class PauseSubState extends MusicBeatSubstate
 					FlxTween.tween(scoreWarning, {alpha: 0, y: scoreWarning.y - 10}, 0.4, {ease: FlxEase.quartInOut, startDelay: 4});
 
 					warningAmountLols += 1;
+					FlxG.resetState();
 			}
 		}
 	}
