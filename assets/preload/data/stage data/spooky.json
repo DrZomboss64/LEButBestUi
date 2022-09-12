@@ -30,29 +30,6 @@
             ],
             "start_Animation": "idle",
             "object_Name": "bg"
-        },
-		{
-			"is_Animated": true,
-			"updateHitbox": false,
-			"scroll_Factor": [
-				0.85, 0.85
-			],
-			"position": [
-				-100, -300
-			],
-			"scale": 1,
-			"antialiased": true,
-			"alpha": 0.85,
-			"file_Name": "halloween_lightbulb",
-			"animations": [
-				{
-					"animation_name": "Lightbulb0",
-					"looped": true,
-					"fps": 24,
-					"name": "Light"
-				}
-			],
-			"start_Animation": "Light"
-		}
+        }
     ]
 }

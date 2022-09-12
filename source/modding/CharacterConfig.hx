@@ -23,6 +23,7 @@ typedef CharacterConfig =
 	var trailStalpha:Null<Float>;
 	var trailDiff:Null<Float>;
 
+	var deathCharacter:Null<String>;
 	var deathCharacterName:Null<String>;
 
 	// multiple characters stuff

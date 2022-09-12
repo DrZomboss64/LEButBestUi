@@ -31,7 +31,7 @@ class GameOverSubstate extends MusicBeatSubstate
 		FlxG.camera.scroll.set();
 		FlxG.camera.target = null;
 
-		if(utilities.Options.getData("quickRestart"))
+		if(utilities.Options.getData("quickRestart") || utilities.Options.getData("optimizedDX"))
 		{
 			#if linc_luajit
 			if (PlayState.luaModchart != null)
@@ -48,6 +48,8 @@ class GameOverSubstate extends MusicBeatSubstate
 		Conductor.songPosition = 0;
 
 		bf = new Boyfriend(x, y, PlayState.boyfriend.deathCharacter, true);
+		bf.x += bf.positioningOffset[0];
+		bf.y += bf.positioningOffset[1];
 		add(bf);
 
 		camFollow = new FlxObject(bf.getGraphicMidpoint().x, bf.getGraphicMidpoint().y, 1, 1);
@@ -71,6 +73,11 @@ class GameOverSubstate extends MusicBeatSubstate
 
 	override function update(elapsed:Float)
 	{
+		#if not web
+        Paths.clearUnusedMemory();
+        Paths.clearStoredMemory();
+        #end
+		
 		super.update(elapsed);
 
 		FlxG.camera.followLerp = 0.01 * (60 / Main.display.currentFPS);
@@ -121,19 +128,12 @@ class GameOverSubstate extends MusicBeatSubstate
 			FlxG.camera.follow(camFollow, LOCKON, 0.01 * (60 / Main.display.currentFPS));
 		}
 
-		var daStage = PlayState.curStage; //the gameover voicelines
-
 		if (bf.animation.curAnim.name == 'firstDeath' && bf.animation.curAnim.finished)
 		{
 			var soundPath = Paths.music("deaths/bf-dead/loop");
 
 			if(Assets.exists(Paths.music("deaths/" + bf.curCharacter + "/loop")))
 				soundPath = Paths.music("deaths/" + bf.curCharacter + "/loop");
-
-			if (daStage == 'wasteland')
-			{
-				FlxG.sound.play(Paths.sound('jeffGameover/jeffGameover-' + FlxG.random.int(1, 25), 'shared'));
-			}
 
 			FlxG.sound.playMusic(soundPath);
 		}

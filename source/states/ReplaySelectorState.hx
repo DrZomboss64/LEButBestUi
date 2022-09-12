@@ -1,5 +1,6 @@
 package states;
 
+import utilities.CoolUtil;
 import lime.app.Application;
 import openfl.Assets;
 import ui.Alphabet;
@@ -11,7 +12,7 @@ import flixel.util.FlxColor;
 import flixel.FlxG;
 import flixel.FlxSprite;
 import flixel.addons.display.FlxBackdrop;
-import flixel.util.FlxGradient;
+import flixel.util.FlxGradient; 
 
 class ReplaySelectorState extends MusicBeatState
 {
@@ -43,6 +44,14 @@ class ReplaySelectorState extends MusicBeatState
 		menuBG.antialiasing = true;
 		add(menuBG);
 
+        gradientBar = FlxGradient.createGradientFlxSprite(Math.round(FlxG.width), 512, [0x00ff0000, 0x558DE7E5, 0xAAE6F0A9], 1, 90, true);
+		gradientBar.y = FlxG.height - gradientBar.height;
+		add(gradientBar);
+		gradientBar.scrollFactor.set(0, 0);
+
+        add(checker);
+		checker.scrollFactor.set(0, 0.07);
+
         grpReplays = new FlxTypedGroup<Alphabet>();
         add(grpReplays);
 
@@ -50,6 +59,10 @@ class ReplaySelectorState extends MusicBeatState
     }
 
     override function update(elapsed:Float) {
+        
+        checker.x -= 0.21;
+		checker.y -= 0.51;
+
         super.update(elapsed);
 
         if(controls.RESET)
@@ -73,7 +86,7 @@ class ReplaySelectorState extends MusicBeatState
                 LoadingState.loadAndSwitchState(new PlayState(replay));
             }
             else
-                Application.current.window.alert("It seems this replay's song doesn't exist, maybe try enabling the mod for it?", "Leather Engine's No Crash Tool");
+                CoolUtil.coolError("It seems this replay's song doesn't exist, maybe try enabling the mod for it?", "Leather Engine's No Crash Tool");
         }
 
         if(controls.DOWN_P)

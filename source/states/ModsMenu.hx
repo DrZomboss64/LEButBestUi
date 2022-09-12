@@ -31,7 +31,7 @@ import game.Song;
 import debuggers.StageMakingState;
 import game.Highscore;
 import flixel.addons.display.FlxBackdrop;
-import flixel.util.FlxGradient;
+import flixel.util.FlxGradient; 
 
 class ModsMenu extends MusicBeatState
 {
@@ -95,7 +95,7 @@ class ModsMenu extends MusicBeatState
 		add(descBg);
 
 		descriptionText = new FlxText(descBg.x, descBg.y + 4, FlxG.width, "Template Description", 18);
-		descriptionText.setFormat(Paths.font("Koda135759-vmm2O.ttf"), 18, FlxColor.WHITE, CENTER);
+		descriptionText.setFormat(Paths.font("vcr.ttf"), 18, FlxColor.WHITE, CENTER);
 		descriptionText.borderColor = FlxColor.BLACK;
 		descriptionText.borderSize = 1;
 		descriptionText.borderStyle = OUTLINE;
@@ -106,7 +106,7 @@ class ModsMenu extends MusicBeatState
 		var leText:String = "Press ENTER to enable / disable the currently selected mod.";
 
 		var text:FlxText = new FlxText(0, FlxG.height - 22, FlxG.width, leText, 18);
-		text.setFormat(Paths.font("Koda135759-vmm2O.ttf"), 18, FlxColor.WHITE, RIGHT);
+		text.setFormat(Paths.font("vcr.ttf"), 18, FlxColor.WHITE, RIGHT);
 		text.scrollFactor.set();
 		text.borderColor = FlxColor.BLACK;
 		text.borderSize = 1;
@@ -176,12 +176,18 @@ class ModsMenu extends MusicBeatState
 		{
 			x.Alphabet_Text.targetY = bruh - curSelected;
 
+
 			if(x.Alphabet_Text.targetY == 0)
 			{
 				descriptionText.screenCenter(X);
 
 				@:privateAccess
-				descriptionText.text = ModList.modMetadatas.get(x.Option_Value).description + "\nAuthor: " + ModList.modMetadatas.get(x.Option_Value)._author + "\n";
+				descriptionText.text = 
+				ModList.modMetadatas.get(x.Option_Value).description 
+				+ "\nAuthor: " + ModList.modMetadatas.get(x.Option_Value)._author 
+				+ "\nLeather Engine Version: " + ModList.modMetadatas.get(x.Option_Value).apiVersion 
+				+ "\nMod Version: " + ModList.modMetadatas.get(x.Option_Value).modVersion 
+				+ "\n";
 			}
 
 			bruh++;

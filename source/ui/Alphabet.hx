@@ -39,7 +39,7 @@ class Alphabet extends FlxSpriteGroup
 
 	var splitWords:Array<String> = [];
 
-	public var isBold:Bool = false;
+	var isBold:Bool = false;
 
 	public function new(x:Float, y:Float, text:String = "", ?bold:Bool = false, typed:Bool = false)
 	{
@@ -119,8 +119,6 @@ class Alphabet extends FlxSpriteGroup
 	{
 		splitWords = _finalText.split("");
 	}
-
-	public var personTalking:String = 'gf';
 
 	public function startTypedText():Void
 	{
@@ -226,15 +224,14 @@ class Alphabet extends FlxSpriteGroup
 		{
 			var scaledY = FlxMath.remapToRange(targetY, 0, 1, 0, 1.3);
 
-			var lerpVal:Float = CoolUtil.boundTo(elapsed * 9.6, 0, 1);
+			var lerpVal:Float = CoolUtil.boundTo((1.0 / Main.display.currentFPS) * 9.6, 0, 1);
 			
 			y = FlxMath.lerp(y, (scaledY * yMult) + (FlxG.height * 0.48) + yAdd, lerpVal);
 
-			if(forceX != Math.NEGATIVE_INFINITY) {
+			if(forceX != Math.NEGATIVE_INFINITY)
 				x = forceX;
-			} else {
+			else
 				x = FlxMath.lerp(x, (targetY * 20) + 90 + xAdd, lerpVal);
-			}
 		}
 
 		super.update(elapsed);
@@ -253,16 +250,11 @@ class AlphaCharacter extends FlxSprite
 
 	public var row:Int = 0;
 
-	public static var textTexture:FlxAtlasFrames;
-
 	public function new(x:Float, y:Float)
 	{
 		super(x, y);
-		
-		if(textTexture == null)
-			textTexture = Paths.getSparrowAtlas('alphabet');
 
-		frames = textTexture;
+		frames = Paths.getSparrowAtlas('alphabet');
 
 		antialiasing = true;
 	}

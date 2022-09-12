@@ -11,7 +11,7 @@ import flixel.FlxSprite;
 class ScrollSpeedMenu extends MusicBeatSubstate
 {
     var alpha_Value:Float = 0.0;
-    var offsetText:FlxText = new FlxText(0,0,0,"Scrollspeed: 0",64).setFormat(Paths.font("Koda135759-vmm2O.ttf"), 64, FlxColor.WHITE, CENTER, OUTLINE, FlxColor.BLACK);
+    var offsetText:FlxText = new FlxText(0,0,0,"Scrollspeed: 0",64).setFormat(Paths.font("vcr.ttf"), 64, FlxColor.WHITE, CENTER, OUTLINE, FlxColor.BLACK);
 
     public function new()
     {

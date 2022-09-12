@@ -2,7 +2,6 @@
     "defaultFlipX": true,
     "dancesLeftAndRight": false,
     "imagePath": "Optimized_Boyfriend_Assets",
-    "spritesheetType": "SPARROW",
     "barColor": [81, 201, 219],
     "offsetsFlipWhenEnemy": true,
     "offsetsFlipWhenPlayer": false,

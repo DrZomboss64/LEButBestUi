@@ -23,7 +23,7 @@ import flixel.util.FlxColor;
 import lime.utils.Assets;
 import flixel.tweens.FlxEase; 
 import flixel.addons.display.FlxBackdrop;
-import flixel.util.FlxGradient;
+import flixel.util.FlxGradient; 
 
 using StringTools;
 
@@ -71,6 +71,11 @@ class FreeplayState extends MusicBeatState
 
 	override function create()
 	{
+		#if not web
+        Paths.clearUnusedMemory();
+        Paths.clearStoredMemory();
+        #end
+
 		MusicBeatState.windowNameSuffix = " Freeplay";
 		
 		var black = new FlxSprite().makeGraphic(FlxG.width, FlxG.height, FlxColor.BLACK);
@@ -109,28 +114,31 @@ class FreeplayState extends MusicBeatState
 		// Loops through all songs in freeplaySonglist.txt
 		for (i in 0...initSonglist.length)
 		{
-			// Creates an array of their strings
-			var listArray = initSonglist[i].split(":");
+			if(initSonglist[i].trim() != "")
+			{
+				// Creates an array of their strings
+				var listArray = initSonglist[i].split(":");
 
-			// Variables I like yes mmmm tasty
-			var week = Std.parseInt(listArray[2]);
-			var icon = listArray[1];
-			var song = listArray[0];
-			
-			var diffsStr = listArray[3];
-			var diffs = ["easy", "normal", "hard"];
+				// Variables I like yes mmmm tasty
+				var week = Std.parseInt(listArray[2]);
+				var icon = listArray[1];
+				var song = listArray[0];
+				
+				var diffsStr = listArray[3];
+				var diffs = ["easy", "normal", "hard"];
 
-			var color = listArray[4];
-			var actualColor:Null<FlxColor> = null;
+				var color = listArray[4];
+				var actualColor:Null<FlxColor> = null;
 
-			if(color != null)
-				actualColor = FlxColor.fromString(color);
+				if(color != null)
+					actualColor = FlxColor.fromString(color);
 
-			if(diffsStr != null)
-				diffs = diffsStr.split(",");
+				if(diffsStr != null)
+					diffs = diffsStr.split(",");
 
-			// Creates new song data accordingly
-			songs.push(new SongMetadata(song, week, icon, diffs, actualColor));
+				// Creates new song data accordingly
+				songs.push(new SongMetadata(song, week, icon, diffs, actualColor));
+			}
 		}
 
 		if(utilities.Options.getData("menuBGs"))
@@ -157,7 +165,7 @@ class FreeplayState extends MusicBeatState
 		scoreBG.alpha = 0.6;
 		add(scoreBG);
 
-		scoreText.setFormat(Paths.font("Koda135759-vmm2O.ttf"), 32, FlxColor.WHITE, RIGHT);
+		scoreText.setFormat(Paths.font("vcr.ttf"), 32, FlxColor.WHITE, RIGHT);
 		add(scoreText);
 
 		diffText = new FlxText(FlxG.width, scoreText.y + 36, 0, "", 24);
@@ -175,6 +183,8 @@ class FreeplayState extends MusicBeatState
 			var songText:Alphabet = new Alphabet(0, (70 * i) + 30, songs[i].songName, true, false);
 			songText.isMenuItem = true;
 			songText.targetY = i;
+			songText.screenCenter(X);
+			songText.yAdd -= 70;
 			grpSongs.add(songText);
 
 			if(utilities.Options.getData("healthIcons"))
@@ -223,7 +233,7 @@ class FreeplayState extends MusicBeatState
 		#end
 
 		var text:FlxText = new FlxText(textBG.x - 1, textBG.y + 4, FlxG.width, leText, 18);
-		text.setFormat(Paths.font("Koda135759-vmm2O.ttf"), 16, FlxColor.WHITE, RIGHT);
+		text.setFormat(Paths.font("vcr.ttf"), 16, FlxColor.WHITE, RIGHT);
 		text.scrollFactor.set();
 		add(text);
 
@@ -255,7 +265,7 @@ class FreeplayState extends MusicBeatState
 	{
 		checker.x -= 0.21;
 		checker.y -= 0.51;
-
+		
 		super.update(elapsed);
 
 		lerpScore = Math.floor(FlxMath.lerp(lerpScore, intendedScore, 0.4));
@@ -411,32 +421,21 @@ class FreeplayState extends MusicBeatState
 				else
 					vocals = new FlxSound();
 
-				FlxG.sound.playMusic(Paths.inst(songs[curSelected].songName.toLowerCase(), curDiffString), 0.7);
-
-				FlxG.sound.list.add(vocals);
-				vocals.play();
 				vocals.persist = true;
 				vocals.looped = true;
 				vocals.volume = 0.7;
-			}
+				
+				FlxG.sound.list.add(vocals);
 
-			if(vocals != null && FlxG.sound.music != null && !FlxG.keys.justPressed.ENTER)
-			{
-				if(vocals.active && FlxG.sound.music.active)
-				{
-					if(vocals.time >= FlxG.sound.music.endTime)
-						vocals.pause();
-				}
-	
-				if(vocals.active && FlxG.sound.music.active)
-				{
-					if(vocals.time > FlxG.sound.music.time + 20)
-					{
-						vocals.pause();
-						vocals.time = FlxG.sound.music.time;
-						vocals.play();
-					}
-				}
+				FlxG.sound.music = new FlxSound().loadEmbedded(Paths.inst(songs[curSelected].songName.toLowerCase(), curDiffString));
+				FlxG.sound.music.persist = true;
+				FlxG.sound.music.looped = true;
+				FlxG.sound.music.volume = 0.7;
+				
+				FlxG.sound.list.add(FlxG.sound.music);
+
+				FlxG.sound.music.play();
+				vocals.play();
 			}
 
 			#if cpp
@@ -480,22 +479,21 @@ class FreeplayState extends MusicBeatState
 							colorTween.cancel();
 
 						PlayState.chartingMode = false;
-						LoadingState.loadAndSwitchState(new PlayState());
-
 						destroyFreeplayVocals();
+						LoadingState.loadAndSwitchState(new PlayState());
 					}
 					else
 					{
 						if(Assets.exists(Paths.inst(songs[curSelected].songName.toLowerCase(), curDiffString)))
-							Application.current.window.alert(PlayState.SONG.song.toLowerCase() + " (JSON) != " + songs[curSelected].songName.toLowerCase() + " (FREEPLAY)\nTry making them the same.",
+							CoolUtil.coolError(PlayState.SONG.song.toLowerCase() + " (JSON) != " + songs[curSelected].songName.toLowerCase() + " (FREEPLAY)\nTry making them the same.",
 						"Leather Engine's No Crash, We Help Fix Stuff Tool");
 						else
-							Application.current.window.alert("Something is wrong with your song names, I'm not sure what, but I'm sure you can figure it out.",
+							CoolUtil.coolError("Your song seems to not have an Inst.ogg, check the folder name in 'songs'!",
 					"Leather Engine's No Crash, We Help Fix Stuff Tool");
 					}
 				}
 				else
-					Application.current.window.alert(songs[curSelected].songName.toLowerCase() + " doesn't match with any song audio files!\nTry fixing it's name in freeplaySonglist.txt",
+					CoolUtil.coolError(songs[curSelected].songName.toLowerCase() + " doesn't match with any song audio files!\nTry fixing it's name in freeplaySonglist.txt",
 				"Leather Engine's No Crash, We Help Fix Stuff Tool");
 			}
 		}

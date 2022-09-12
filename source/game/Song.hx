@@ -46,6 +46,9 @@ typedef SwagSong =
 
 	var chartOffset:Null<Int>; // in milliseconds
 
+	//funny psych os shit
+	var disableDebugButtons:Bool;
+
 	// shaggy pog
 	var mania:Null<Int>;
 
@@ -71,6 +74,8 @@ class Song
 	public var bpm:Float;
 	public var needsVoices:Bool = true;
 	public var speed:Float = 1;
+	
+	public var disableDebugButtons:Bool = false;
 
 	public var player1:String = 'bf';
 	public var player2:String = 'dad';

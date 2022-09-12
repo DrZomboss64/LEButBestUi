@@ -1,42 +1,3 @@
-Sup this is a LE but with better ui and also the assets images is not my is a others engine.
-
-## Credits
-
-Mic'd Up Team 
-* Mod Creator: Verwex
-
-* Additional Programmers: KadeDev, Ash237, Haya, TentaRJ and Rozebud
-
-* Additional Artists: Sector03
-
-Saw Engine Team
-* Mod Creator: M.A. Jigsaw
-
-FNF Beat Team
-* Main Programmer: Luis Com S
-
-* Additional Programmer: Gui iago
-
-* Director / Artist: AquaStrukr
-
-* Artist: NoobZiito
-
-* Logo: Cranile
-
-* Guns Mania Chart: Cyaan
-
-* Rich Predence Header Design: asho
-
-* Menu Remix: Lenineth
-
-## Some Code
-
-Kade!Engine
-* New Options: YOUK-dev for Flash on x10 combo Gf voice on x10 combo
-
-## And that's all I guess.
-
-
 ![Logo](art/Logo.png)
 
 This is the repository for Leather Engine, an engine created for making and playing mods for Friday Night Funkin'.
@@ -57,9 +18,9 @@ For build instructions go to [Build.md](https://github.com/Leather128/LeatherEng
 
 ## Features
 
-> 1-INF Key Support
+> 1-21+ Key Support
 
-What does this mean? Well, now if you want, you can choose a different amount of arrows / keys! (Aka different from 4), this feature goes up to infinity because you can add your own sets of keys, but the default limit is 18 (also yes 1 key is a thing lol).
+What does this mean? Well, now if you want, you can choose a different amount of arrows / keys! (Aka different from 4), this feature goes up to 21 by default, but can be increased with mods (no source code required).
 
 > Full mod support with Polymod (with a mod loader)!
 

@@ -2,7 +2,6 @@
     "defaultFlipX": false,
     "dancesLeftAndRight": true,
     "imagePath": "gfPixel",
-    "spritesheetType": "SPARROW",
     "barColor": [186, 49, 104],
     "healthIcon": "gf",
     "positionOffset": [305, 275],

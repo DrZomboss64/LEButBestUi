@@ -50,7 +50,7 @@ class NoteColorSubstate extends MusicBeatSubstate
 
         super();
 
-        coolText.setFormat(Paths.font("Koda135759-vmm2O.ttf"), 32, FlxColor.WHITE, CENTER, OUTLINE, FlxColor.BLACK);
+        coolText.setFormat(Paths.font("vcr.ttf"), 32, FlxColor.WHITE, CENTER, OUTLINE, FlxColor.BLACK);
         coolText.screenCenter(X);
         
         var bg:FlxSprite = new FlxSprite().makeGraphic(FlxG.width, FlxG.height, FlxColor.BLACK);

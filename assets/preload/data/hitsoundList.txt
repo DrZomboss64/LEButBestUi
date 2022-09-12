@@ -8,15 +8,16 @@ killsoundeffect
 vineboom
 baka kawai
 bonk!
-dbz punch
-fart reverb
 hl1 elevator ding
-MLG Hitmarker
 nmg alert sound
-switch click
+switch
 sonic ring
 3d world coin
 taco bell
 tf2 default hit
 tf2 nope
 tf2 pan hit
+absorb
+audience
+beep 2
+cymbal

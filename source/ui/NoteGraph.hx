@@ -17,8 +17,8 @@ class NoteGraph extends FlxGroup
         bg.alpha = 0.3;
         add(bg);
 
-        add(new FlxText(startX, startY - 16, 0, "-166ms", 16).setFormat(Paths.font("Koda135759-vmm2O.ttf"), 16, FlxColor.WHITE, LEFT, OUTLINE, FlxColor.BLACK));
-        add(new FlxText(startX, startY + 332, 0, "166ms", 16).setFormat(Paths.font("Koda135759-vmm2O.ttf"), 16, FlxColor.WHITE, LEFT, OUTLINE, FlxColor.BLACK));
+        add(new FlxText(startX, startY - 16, 0, "-166ms", 16).setFormat(Paths.font("vcr.ttf"), 16, FlxColor.WHITE, LEFT, OUTLINE, FlxColor.BLACK));
+        add(new FlxText(startX, startY + 332, 0, "166ms", 16).setFormat(Paths.font("vcr.ttf"), 16, FlxColor.WHITE, LEFT, OUTLINE, FlxColor.BLACK));
 
         add(new FlxSprite(startX, startY).makeGraphic(500, 4, FlxColor.GRAY));
         add(new FlxSprite(startX, startY + 83).makeGraphic(500, 4, FlxColor.GRAY));

@@ -34,7 +34,7 @@ class MainPlayState extends MusicBeatState
 
 	var menuItems:FlxTypedGroup<FlxSprite>;
 
-	var optionShit:Array<String> = ['story mode', 'freeplay'];
+	var optionShit:Array<String> = ['story mode', 'freeplay', 'credits'];
 
 	var magenta:FlxSprite;
 	var camFollow:FlxObject;
@@ -50,6 +50,11 @@ class MainPlayState extends MusicBeatState
 
 	override function create()
 	{
+		#if not web
+        Paths.clearUnusedMemory();
+        Paths.clearStoredMemory();
+        #end
+		
 		if(PolymodHandler.metadataArrays.length > 0)
 			optionShit.push('mods');
 
@@ -614,6 +619,10 @@ class MainPlayState extends MusicBeatState
 				FlxG.switchState(new FreeplayState());
 
 				trace("Freeplay Menu Selected");
+
+			case 'credits':
+				FlxG.switchState(new CreditsState());
+				trace("Credits Menu Selected");
 
 			/*case 'options':
 				FlxTransitionableState.skipNextTransIn = true;

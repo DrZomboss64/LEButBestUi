@@ -30,7 +30,7 @@ import game.Highscore;
 import openfl.utils.Assets as OpenFLAssets;
 import debuggers.ChartingStateDev;
 import flixel.addons.display.FlxBackdrop;
-import flixel.util.FlxGradient;
+import flixel.util.FlxGradient; 
 
 class OptionsMenu extends MusicBeatState
 {
@@ -55,10 +55,12 @@ class OptionsMenu extends MusicBeatState
 			new PageOption("Miscellaneous", 1, "Miscellaneous"),
 			new PageOption("Sound Effects", 2, "Sound Effects"),
 			new PageOption("Rythm Games additions", 3, "Rythm Games additions"),
-			new BoolOption("Bot", "botplay", 4),
-			new BoolOption("Quick Restart", "quickRestart", 5),
-			new BoolOption("No Death", "noDeath", 6),
-			new StringSaveOption("Hitsound", CoolUtil.coolTextFile(Paths.txt("hitsoundList")), 7, "hitsound")
+			new PageOption("Appearance", 4, "Appearance"),
+			new PageOption("Extra", 5, "Extra"),
+			new BoolOption("Bot", "botplay", 6),
+			new BoolOption("Quick Restart", "quickRestart", 7),
+			new BoolOption("No Death", "noDeath", 8),
+			new StringSaveOption("Hitsound", CoolUtil.coolTextFile(Paths.txt("hitsoundList")), 9, "hitsound")
 		],
 		[
 			"Graphics",
@@ -69,8 +71,8 @@ class OptionsMenu extends MusicBeatState
 			new GameSubstateOption("Max FPS", 4, substates.MaxFPSMenu),
 			new BoolOption("Bigger Score Text", "biggerScoreInfo", 5),
 			new BoolOption("Bigger Info Text", "biggerInfoText", 6),
-			new StringSaveOption("Time Bar Style", [ "leather engine", "touhou project", "psych engine", "lore engine", "new kade engine", "old kade engine"], 7, "timeBarStyle"),
-			new PageOption("Screen Effects", 8, "Screen Effects")
+			new StringSaveOption("Time Bar Style", ["leather engine", "touhou project", "psych engine", "lore engine", "old kade engine"], 8, "timeBarStyle"),
+			new PageOption("Screen Effects", 9, "Screen Effects")
 		],
 		[
 			"Tools",
@@ -94,10 +96,11 @@ class OptionsMenu extends MusicBeatState
 			#if discord_rpc
 			new BoolOption("Discord RPC", "discordRPC", 6),
 			#end
-			new StringSaveOption("Cutscenes Play On", ["story","freeplay","both"], 7, "cutscenePlaysOn"),
-			new StringSaveOption("Play As", ["bf", "opponent"], 8, "playAs"),
-			new BoolOption("Disable Debug Menus", "disableDebugMenus", 9),
-			new GameSubstateOption("Import Old Scores", 11, substates.ImportHighscoresSubstate)
+			new StringSaveOption("Cutscenes Play On", ["story","freeplay","both"], 6, "cutscenePlaysOn"),
+			new StringSaveOption("Play As", ["bf", "opponent"], 7, "playAs"),
+			new BoolOption("Disable Debug Menus", "disableDebugMenus", 10),
+			new BoolOption("Auto Pause", "autoPause", 12),
+			new GameSubstateOption("Import Old Scores", 13, substates.ImportHighscoresSubstate)
 		],
 		[
 			"Optimizations",
@@ -110,7 +113,6 @@ class OptionsMenu extends MusicBeatState
 			new BoolOption("Animated Backgrounds", "animatedBGs", 6),
 			new BoolOption("Preload Stage Events", "preloadChangeBGs", 7),
 			new BoolOption("Title Logo Play Menu", "logoBL", 8),
-			new BoolOption("Icon in Play Menu", "menuIcon", 9)
 		],
 		[
 			"Info Display",
@@ -137,6 +139,7 @@ class OptionsMenu extends MusicBeatState
 			new BoolOption("Shit gives Miss", "missOnShit", 5),
 			new BoolOption("Ghost Tapping", "ghostTapping", 9),
 			new BoolOption("Gain Misses on Sustains", "missOnHeldNotes", 10),
+			new BoolOption("No Miss", "noHit", 6),
 			new BoolOption("Reset Button", "resetButton", 7)
 		],
 		[
@@ -187,8 +190,18 @@ class OptionsMenu extends MusicBeatState
 			new PageOption("Back", 0, "Misc"),
 			new BoolOption("Invisible Notes", "invisibleNotes", 1),
 			new BoolOption("No Miss", "noHit", 2)
+		],
+		[
+			"Extra",
+			new PageOption("Back", 0, "Gameplay"),
+			//new BoolOption("Green Screen", "greenScreen", 1),
+			new BoolOption("Time Bar Colors", "barColors", 2) // thx Vortex2Oblivion
+		],
+		[
+			"Appearance",
+			new PageOption("Back", 0, "Categories"),
+			new BoolOption("Notes Per Second", "notesperSecond", 1)
 		]
-		
 	];
 
 	public var page:FlxTypedGroup<Option> = new FlxTypedGroup<Option>();
@@ -197,6 +210,11 @@ class OptionsMenu extends MusicBeatState
 
 	override function create()
 	{
+		#if not web
+        Paths.clearUnusedMemory();
+        Paths.clearStoredMemory();
+        #end
+		
 		if(PlayState.instance == null)
 			pages[3][2] = null;
 
@@ -284,7 +302,7 @@ class OptionsMenu extends MusicBeatState
 	{
 		checker.x -= 0.21;
 		checker.y -= 0.51;
-		
+
 		super.update(elapsed);
 
 		if (!inMenu)

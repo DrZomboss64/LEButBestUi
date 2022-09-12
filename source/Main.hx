@@ -1,20 +1,14 @@
 package;
 
 import openfl.text.TextFormat;
-import flixel.FlxG;
 import ui.SimpleInfoDisplay;
-import ui.MemoryCounter;
 import states.TitleState;
 import flixel.FlxGame;
 import flixel.FlxState;
-import openfl.Assets;
 import openfl.Lib;
-import openfl.display.FPS;
 import openfl.display.Sprite;
 import openfl.events.Event;
 import flixel.util.FlxColor;
-import openfl.display.Bitmap;
-
 
 class Main extends Sprite
 {
@@ -27,7 +21,6 @@ class Main extends Sprite
 	var startFullscreen:Bool = false; // Whether to start the game in fullscreen on desktop targets
 
 	// You can pretty much ignore everything from here on - your code should go in your states.
-	public static var watermark:Sprite;
 
 	public static function main():Void
 	{
@@ -39,22 +32,22 @@ class Main extends Sprite
 		super();
 
 		if (stage != null)
-		{
 			init();
-		}
 		else
-		{
 			addEventListener(Event.ADDED_TO_STAGE, init);
-		}
+	}
+
+	public function changeFPSColor(color:FlxColor)
+	{
+		display.textColor = color;
+		display.textColor = color;
 	}
 
 	private function init(?E:Event):Void
 	{
 		if (hasEventListener(Event.ADDED_TO_STAGE))
-		{
 			removeEventListener(Event.ADDED_TO_STAGE, init);
-		}
-
+	
 		setupGame();
 	}
 
@@ -67,77 +60,32 @@ class Main extends Sprite
 		{
 			var ratioX:Float = stageWidth / gameWidth;
 			var ratioY:Float = stageHeight / gameHeight;
+
 			zoom = Math.min(ratioX, ratioY);
+
 			gameWidth = Math.ceil(stageWidth / zoom);
 			gameHeight = Math.ceil(stageHeight / zoom);
 		}
 
-		#if !cpp
-		framerate = 60;
-		#end
-
-		#if !debug
-		initialState = TitleState;
-		#end
-
 		addChild(new FlxGame(gameWidth, gameHeight, initialState, zoom, framerate, framerate, skipSplash, startFullscreen));
 
 		#if !mobile
-		display = new SimpleInfoDisplay(10, 3, 0xFFFFFF, "_sans");
+		display = new SimpleInfoDisplay(3, 3, 0xFFFFFF, "_sans");
 		addChild(display);
 		#end
-
-		var bitmapData = Assets.getBitmapData("assets/images/hell.png");
-
-		watermark = new Sprite();
-		watermark.addChild(new Bitmap(bitmapData)); // Sets the graphic of the sprite to a Bitmap object, which uses our embedded BitmapData class.
-		watermark.alpha = 0.4;
-		watermark.x = Lib.application.window.width - 10 - watermark.width;
-		watermark.y = Lib.application.window.height - 10 - watermark.height;
-		addChild(watermark);
 	}
 
 	public static var display:SimpleInfoDisplay;
 
 	public static function toggleFPS(fpsEnabled:Bool):Void
-	{
 		display.infoDisplayed[0] = fpsEnabled;
-	}
 
 	public static function toggleMem(memEnabled:Bool):Void
-	{
 		display.infoDisplayed[1] = memEnabled;
-	}
-
-	public function changeFPSColor(color:FlxColor)
-	{
-		display.textColor = color;
-		display.textColor = color;
-	}
 	
 	public static function toggleVers(versEnabled:Bool):Void
-	{
 		display.infoDisplayed[2] = versEnabled;
-	}
 
 	public static function changeFont(font:String):Void
-	{
 		display.defaultTextFormat = new TextFormat(font, (font == "_sans" ? 12 : 14), display.textColor);
-	}
-
-	/* cool kade functions D) */
-	public function setFPSCap(cap:Float)
-	{
-		openfl.Lib.current.stage.frameRate = cap;
-	}
-
-	public function getFPSCap():Float
-	{
-		return openfl.Lib.current.stage.frameRate;
-	}
-
-	public function getFPS():Float
-	{
-		return display.currentFPS;
-	}
 }

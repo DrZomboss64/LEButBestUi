@@ -2,7 +2,6 @@
     "defaultFlipX": false,
     "dancesLeftAndRight": false,
     "imagePath": "DADDY_DEAREST",
-    "spritesheetType": "SPARROW",
     "barColor":  [199, 111, 211],
     "animations": [
         {

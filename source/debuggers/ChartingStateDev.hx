@@ -87,6 +87,11 @@ class ChartingStateDev extends MusicBeatState
 
     override function create()
     {
+        #if not web
+        Paths.clearUnusedMemory();
+        Paths.clearStoredMemory();
+        #end
+        
         #if discord_rpc
         DiscordClient.changePresence("Charting a song", null, null);
         #end
@@ -95,11 +100,7 @@ class ChartingStateDev extends MusicBeatState
 		if (Assets.getLibrary("shared") == null)
 			Assets.loadLibrary("shared");
 
-        #if sys
-		var characterList = CoolUtil.coolTextFilePolymod(Paths.txt('characterList'));
-		#else
-		var characterList = CoolUtil.coolTextFile(Paths.txt('characterList'));
-		#end
+        var characterList = CoolUtil.coolTextFile(Paths.txt('characterList'));
 
         for(Text in characterList)
         {

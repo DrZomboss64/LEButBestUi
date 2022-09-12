@@ -1,9 +1,5 @@
-oldSingDOWN 78 -90
-singDOWN 78 -90
-singUP 44 56
-prettyGoodAnim 4 17
 idle 0 0
-singRIGHT -17 -26
-singLEFT 100 -14
-oldSingUP,24, 86 -10
-ughAnim -25 0
+singDOWN 58 -110
+singRIGHT -31 -27
+singUP 24 56
+singLEFT 86 -12

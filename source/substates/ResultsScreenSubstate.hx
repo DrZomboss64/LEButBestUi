@@ -30,12 +30,12 @@ class ResultsScreenSubstate extends MusicBeatSubstate
         var topString = PlayState.SONG.song + " - " + PlayState.storyDifficultyStr.toUpperCase() + " complete! (" + Std.string(PlayState.songMultiplier) + "x)";
 
         var topText:FlxText = new FlxText(4, 4, 0, topString, 32);
-        topText.setFormat(Paths.font("Koda135759-vmm2O.ttf"), 32, FlxColor.WHITE, LEFT, OUTLINE, FlxColor.BLACK);
+        topText.setFormat(Paths.font("vcr.ttf"), 32, FlxColor.WHITE, LEFT, OUTLINE, FlxColor.BLACK);
         topText.scrollFactor.set();
         add(topText);
 
         var ratings:FlxText = new FlxText(0, FlxG.height, 0, PlayState.instance.returnStupidRatingText());
-        ratings.setFormat(Paths.font("Koda135759-vmm2O.ttf"), 24, FlxColor.WHITE, LEFT, OUTLINE, FlxColor.BLACK);
+        ratings.setFormat(Paths.font("vcr.ttf"), 24, FlxColor.WHITE, LEFT, OUTLINE, FlxColor.BLACK);
         ratings.screenCenter(Y);
         ratings.scrollFactor.set();
         add(ratings);
@@ -44,7 +44,7 @@ class ResultsScreenSubstate extends MusicBeatSubstate
         var bottomText:FlxText = new FlxText(FlxG.width, FlxG.height, 0, 
             "Press ENTER to close this menu\n" + (!PlayState.playingReplay && !PlayState.instance.hasUsedBot ? "Press SHIFT to save this replay\nPress ESCAPE to view this replay\n" : "" )
         );
-        bottomText.setFormat(Paths.font("Koda135759-vmm2O.ttf"), 32, FlxColor.WHITE, RIGHT, OUTLINE, FlxColor.BLACK);
+        bottomText.setFormat(Paths.font("vcr.ttf"), 32, FlxColor.WHITE, RIGHT, OUTLINE, FlxColor.BLACK);
         bottomText.setPosition(FlxG.width - bottomText.width - 2, FlxG.height - (!PlayState.playingReplay ? 96 : 32));
         bottomText.scrollFactor.set();
         add(bottomText);
@@ -52,6 +52,7 @@ class ResultsScreenSubstate extends MusicBeatSubstate
         var graph:NoteGraph = new NoteGraph(PlayState.instance.replay, FlxG.width - 550, 25);
         add(graph);
 
+        FlxG.cameras.list[FlxG.cameras.list.length - 1].zoom = 1;
         cameras = [FlxG.cameras.list[FlxG.cameras.list.length - 1]];
     }
 

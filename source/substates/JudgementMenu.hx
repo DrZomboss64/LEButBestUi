@@ -20,7 +20,7 @@ class JudgementMenu extends MusicBeatSubstate
 
     var preset_Selected:Int = 0;
 
-    var judgementText:FlxText = new FlxText(0,0,0,"Preset: Leather Engine\nMARVELOUS: 25ms\nSICK: 50ms\nGOOD: 70ms\nBAD: 100ms\n",48).setFormat(Paths.font("Koda135759-vmm2O.ttf"), 48, FlxColor.WHITE, CENTER, OUTLINE, FlxColor.BLACK);
+    var judgementText:FlxText = new FlxText(0,0,0,"Preset: Leather Engine\nMARVELOUS: 25ms\nSICK: 50ms\nGOOD: 70ms\nBAD: 100ms\n",48).setFormat(Paths.font("vcr.ttf"), 48, FlxColor.WHITE, CENTER, OUTLINE, FlxColor.BLACK);
 
     var selected:Int = 0;
 

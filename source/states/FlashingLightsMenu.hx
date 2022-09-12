@@ -12,7 +12,7 @@ class FlashingLightsMenu extends MusicBeatState
         super.create();
 
         var text = new FlxText(0,0,0,"Hey! Leather Engine has flashing lights\nPress Y to enable them, or anything else to not.\n(Any key closes this menu)", 32);
-        text.font = Paths.font("Koda135759-vmm2O.ttf");
+        text.font = Paths.font("vcr.ttf");
         text.screenCenter();
         text.setBorderStyle(OUTLINE, FlxColor.BLACK, 1.5, 1);
         add(text);

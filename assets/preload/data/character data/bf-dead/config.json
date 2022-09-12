@@ -2,7 +2,6 @@
     "defaultFlipX": true,
     "dancesLeftAndRight": false,
     "imagePath": "Boyfriend_Dead_Assets",
-    "spritesheetType": "SPARROW",
     "animations": [
         {
             "name": "firstDeath",

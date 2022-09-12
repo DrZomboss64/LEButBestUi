@@ -20,9 +20,11 @@ class SimpleInfoDisplay extends TextField
     public var infoDisplayed:Array<Bool> = [false, false, false];
 
 	public var memPeak:Float = 0;
+
     public var currentFPS:Int = 0;
 
-    var fpsCounter:FPS;
+    public var currentTime:Float = 0.0;
+	public var times:Array<Float> = [];
 
 	public function new(inX:Float = 10.0, inY:Float = 10.0, inCol:Int = 0x000000, ?font:String) 
 	{
@@ -31,25 +33,20 @@ class SimpleInfoDisplay extends TextField
 		x = inX;
 		y = inY;
 		selectable = false;
-		defaultTextFormat = new TextFormat(font != null ? font : openfl.utils.Assets.getFont(Paths.font("Koda135759-vmm2O.ttf")).fontName, (font == "_sans" ? 12 : 14), inCol);
-
-        fpsCounter = new FPS(10000, 10000, inCol);
-        fpsCounter.visible = false;
-        Lib.current.addChild(fpsCounter);
+		defaultTextFormat = new TextFormat(font != null ? font : openfl.utils.Assets.getFont(Paths.font("vcr.ttf")).fontName, (font == "_sans" ? 12 : 14), inCol);
 
 		addEventListener(Event.ENTER_FRAME, onEnter);
+
 		width = FlxG.width;
 		height = FlxG.height;
 	}
 
 	private function onEnter(event:Event)
 	{
-        currentFPS = fpsCounter.currentFPS;
+        text = "";
 
         if(visible)
         {
-            text = "";
-
             for(i in 0...infoDisplayed.length)
             {
                 if(infoDisplayed[i])
@@ -57,6 +54,16 @@ class SimpleInfoDisplay extends TextField
                     switch(i)
                     {
                         case 0:
+                            currentTime = Lib.getTimer();
+                            times.push(currentTime);
+                    
+                            while(currentTime > times[0] + 1000)
+                            {
+                                times.remove(times.shift());
+                            }
+                    
+                            currentFPS = times.length;
+
                             // FPS
                             fps_Function();
                         case 1:
@@ -71,8 +78,6 @@ class SimpleInfoDisplay extends TextField
                 }
             }
         }
-        else
-            text = "";
 	}
 
     function fps_Function()
@@ -82,7 +87,10 @@ class SimpleInfoDisplay extends TextField
 
     function memory_Function()
     {
-		var mem:Float = Math.abs(Math.round(System.totalMemory / 1024 / 1024 * 100)/100);
+		var mem:Float = Math.fround(System.totalMemory / 1024.0 / 1024.0 * 100.0) / 100.0;
+
+		if(mem != Math.abs(mem))
+			mem = 2048.0 + (2048.0 - Math.abs(mem));
 		
 		if(mem > memPeak) memPeak = mem;
 

@@ -5,7 +5,39 @@
             "value": true
         },
         {
+            "option": "rainbowFPS",
+            "value": true
+        },
+        {
             "option": "fpsCounter",
+            "value": false
+        },
+        {
+            "option": "barColors",
+            "value": false
+        },
+        {
+            "option": "logoBL",
+            "value": true
+        },
+        {
+            "option": "logoBL",
+            "value": true
+        },
+        {
+            "option": "notesperSecond",
+            "value": false
+        },
+        {
+            "option": "comboFlash",
+            "value": false
+        },
+        {
+            "option": "comboSound",
+            "value": false
+        },
+        {
+            "option": "missSounds",
             "value": true
         },
         {
@@ -91,6 +123,10 @@
         {
             "option": "judgementTimings",
             "value": [25, 50, 70, 100]
+        },
+        {
+            "option": "barColors",
+            "value": false
         },
         {
             "option": "antiMash",
@@ -210,6 +246,10 @@
         },
         {
             "option": "screenShakes",
+            "value": true
+        },
+        {
+            "option": "autoPause",
             "value": true
         },
         {

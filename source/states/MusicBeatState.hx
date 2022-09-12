@@ -13,7 +13,6 @@ import flixel.FlxG;
 import flixel.addons.ui.FlxUIState;
 import flixel.util.FlxColor;
 
-
 class MusicBeatState extends FlxUIState
 {
 	public var lastBeat:Float = 0;
@@ -36,6 +35,10 @@ class MusicBeatState extends FlxUIState
 		#if polymod
 		polymod.Polymod.clearCache();
 		#end
+			
+		#if sys
+		openfl.system.System.gc();	
+		#end
 
 		super();
 	}
@@ -54,11 +57,7 @@ class MusicBeatState extends FlxUIState
 
 	override function update(elapsed:Float)
 	{
-		//everyStep();
 		var oldStep:Int = curStep;
-
-		Main.watermark.x = Lib.application.window.width - 10 - Main.watermark.width;
-		Main.watermark.y = Lib.application.window.height - 10 - Main.watermark.height;
 
 		updateCurStep();
 		updateBeat();
@@ -67,23 +66,20 @@ class MusicBeatState extends FlxUIState
 			stepHit();
 
 		if (utilities.Options.getData("rainbowFPS") && skippedFrames >= 6)
-			{
-				if (currentColor >= array.length)
-					currentColor = 0;
-				(cast (Lib.current.getChildAt(0), Main)).changeFPSColor(array[currentColor]);
-				currentColor++;
-				skippedFrames = 0;
-			}
-			else
-				skippedFrames++;
-
-		if ((cast (Lib.current.getChildAt(0), Main)).getFPSCap != FlxG.save.data.fpsCap && FlxG.save.data.fpsCap <= 290)
-			(cast (Lib.current.getChildAt(0), Main)).setFPSCap(FlxG.save.data.fpsCap);
+		{
+			if (currentColor >= array.length)
+				currentColor = 0;
+			(cast (Lib.current.getChildAt(0), Main)).changeFPSColor(array[currentColor]);
+			currentColor++;
+			skippedFrames = 0;
+		}
+		else
+			skippedFrames++;
 
 		super.update(elapsed);
 
 		if(FlxG.stage != null)
-			FlxG.stage.frameRate = utilities.Options.getData("maxFPS");
+			FlxG.stage.frameRate = flixel.math.FlxMath.bound(utilities.Options.getData("maxFPS"), 0.1, 1000);
 
 		if(!utilities.Options.getData("antialiasing"))
 		{
@@ -95,6 +91,8 @@ class MusicBeatState extends FlxUIState
 
 		if(FlxG.keys.checkStatus(FlxKey.fromString(utilities.Options.getData("fullscreenBind", "binds")), FlxInputState.JUST_PRESSED))
 			FlxG.fullscreen = !FlxG.fullscreen;
+
+		FlxG.autoPause = utilities.Options.getData("autoPause");
 
 		Application.current.window.title = windowNamePrefix + windowNameSuffix;
 	}
@@ -158,11 +156,11 @@ class MusicBeatState extends FlxUIState
 	public function beatHit():Void { /* do literally nothing dumbass */ }
 
 	public function fancyOpenURL(schmancy:String)
-		{
-			#if linux
-			Sys.command('/usr/bin/xdg-open', [schmancy, "&"]);
-			#else
-			FlxG.openURL(schmancy);
-			#end
-		}
+	{
+		#if linux
+		Sys.command('/usr/bin/xdg-open', [schmancy, "&"]);
+		#else
+		FlxG.openURL(schmancy);
+		#end
+	}
 }

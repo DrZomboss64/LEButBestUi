@@ -13,7 +13,7 @@ import flixel.FlxSprite;
 class MaxFPSMenu extends MusicBeatSubstate
 {
     var fps:Int = 0;
-    var offsetText:FlxText = new FlxText(0,0,0,"Max FPS: 120",64).setFormat(Paths.font("Koda135759-vmm2O.ttf"), 64, FlxColor.WHITE, CENTER, OUTLINE, FlxColor.BLACK);
+    var offsetText:FlxText = new FlxText(0,0,0,"Max FPS: 120",64).setFormat(Paths.font("vcr.ttf"), 64, FlxColor.WHITE, CENTER, OUTLINE, FlxColor.BLACK);
 
     public function new()
     {

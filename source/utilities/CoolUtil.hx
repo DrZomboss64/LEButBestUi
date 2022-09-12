@@ -1,5 +1,9 @@
 package utilities;
 
+import flixel.tweens.FlxTween;
+import flixel.util.FlxColor;
+import flixel.text.FlxText;
+import lime.app.Application;
 import flixel.FlxG;
 import states.PlayState;
 import lime.utils.Assets;
@@ -11,18 +15,17 @@ class CoolUtil
 	public static var difficultyArray:Array<String> = ['EASY', "NORMAL", "HARD"];
 
 	public static function difficultyString():String
-	{
 		return difficultyArray[PlayState.storyDifficulty];
-	}
 
-	public static function boundTo(value:Float, min:Float, max:Float):Float {
+	public static function boundTo(value:Float, min:Float, max:Float):Float
+	{
 		var newValue:Float = value;
 
-		if(newValue < min)
+		if (newValue < min)
 			newValue = min;
-		else if(newValue > max)
+		else if (newValue > max)
 			newValue = max;
-		
+
 		return newValue;
 	}
 
@@ -44,7 +47,7 @@ class CoolUtil
 
 		var daList:Array<Array<String>> = [];
 
-		for(line in daListOg)
+		for (line in daListOg)
 		{
 			daList.push(line.split(delimeter));
 		}
@@ -52,43 +55,13 @@ class CoolUtil
 		return daList;
 	}
 
-	#if sys
-	public static function coolTextFileFromSystem(path:String):Array<String>
-	{
-		return coolTextFile(path);
-		/*
-		var daList:Array<String> = File.getContent(Sys.getCwd() + "assets/" + path + ".txt").trim().split('\n');
-
-		for (i in 0...daList.length)
-		{
-			daList[i] = daList[i].trim();
-		}
-
-		return daList;*/
-	}
-
-	public static function coolTextFilePolymod(path:String):Array<String>
-	{
-		return coolTextFile(path);
-		/*
-		var daList:Array<String> = PolymodAssets.getText(path).trim().split('\n');
-
-		for (i in 0...daList.length)
-		{
-			daList[i] = daList[i].trim();
-		}
-
-		return daList;*/
-	}
-	#end
-
 	public static function numberArray(max:Int, ?min = 0):Array<Int>
 	{
 		var dumbArray:Array<Int> = [];
+
 		for (i in min...max)
-		{
 			dumbArray.push(i);
-		}
+
 		return dumbArray;
 	}
 
@@ -107,12 +80,13 @@ class CoolUtil
 
 		var textArray:Array<String> = text.split(" ");
 
-		for(text in textArray) {
+		for (text in textArray)
+		{
 			var textStuffs = text.split("");
 
-			for(i in 0...textStuffs.length)
+			for (i in 0...textStuffs.length)
 			{
-				if(i != 0)
+				if (i != 0)
 					returnText += textStuffs[i].toLowerCase();
 				else
 					returnText += textStuffs[i].toUpperCase();
@@ -129,17 +103,17 @@ class CoolUtil
 	{
 		var countByColor:Map<Int, Int> = [];
 
-		for(col in 0...sprite.frameWidth)
+		for (col in 0...sprite.frameWidth)
 		{
-			for(row in 0...sprite.frameHeight)
+			for (row in 0...sprite.frameHeight)
 			{
 				var colorOfThisPixel:Int = sprite.pixels.getPixel32(col, row);
 
-				if(colorOfThisPixel != 0)
+				if (colorOfThisPixel != 0)
 				{
-					if(countByColor.exists(colorOfThisPixel))
-						countByColor[colorOfThisPixel] =  countByColor[colorOfThisPixel] + 1;
-					else if(countByColor[colorOfThisPixel] != 13520687 - (2*13520687))
+					if (countByColor.exists(colorOfThisPixel))
+						countByColor[colorOfThisPixel] = countByColor[colorOfThisPixel] + 1;
+					else if (countByColor[colorOfThisPixel] != 13520687 - (2 * 13520687))
 						countByColor[colorOfThisPixel] = 1;
 				}
 			}
@@ -150,9 +124,9 @@ class CoolUtil
 
 		countByColor[flixel.util.FlxColor.BLACK] = 0;
 
-		for(key in countByColor.keys())
+		for (key in countByColor.keys())
 		{
-			if(countByColor[key] >= maxCount)
+			if (countByColor[key] >= maxCount)
 			{
 				maxCount = countByColor[key];
 				maxKey = key;
@@ -162,11 +136,47 @@ class CoolUtil
 		return maxKey;
 	}
 
+	// same lol
 	public static function browserLoad(site:String) {
 		#if linux
 		Sys.command('/usr/bin/xdg-open', [site]);
 		#else
 		FlxG.openURL(site);
+		#end
+	}
+
+	/**
+		Funny handler for `Application.current.window.alert` that *doesn't* crash on Linux and shit.
+
+		@param message Message of the error.
+		@param title Title of the error.
+
+		@author Leather128
+	**/
+	public static function coolError(message:Null<String> = null, title:Null<String> = null):Void
+	{
+		#if !linux
+		Application.current.window.alert(message, title);
+		#else
+		trace("ALERT: " + title + " - " + message);
+
+		var text:FlxText = new FlxText(8, 0, 1280, title + " - " + message, 24);
+		text.color = FlxColor.RED;
+		text.borderSize = 1.5;
+		text.borderStyle = OUTLINE;
+		text.borderColor = FlxColor.BLACK;
+		text.scrollFactor.set();
+		text.cameras = [FlxG.cameras.list[FlxG.cameras.list.length - 1]];
+
+		FlxG.state.add(text);
+
+		FlxTween.tween(text, {alpha: 0, y: 8}, 5, {
+			onComplete: function(_)
+			{
+				FlxG.state.remove(text);
+				text.destroy();
+			}
+		});
 		#end
 	}
 }

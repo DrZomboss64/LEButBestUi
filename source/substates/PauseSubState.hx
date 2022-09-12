@@ -15,10 +15,11 @@ import flixel.text.FlxText;
 import flixel.tweens.FlxEase;
 import flixel.tweens.FlxTween;
 import flixel.util.FlxColor;
+import flixel.addons.display.FlxBackdrop; 
 
 class PauseSubState extends MusicBeatSubstate
 {
-	var grpMenuShit:FlxTypedGroup<Alphabet>;
+	var grpMenuShit:FlxTypedGroup<Alphabet> = new FlxTypedGroup<Alphabet>();
 
 	var curSelected:Int = 0;
 
@@ -29,14 +30,17 @@ class PauseSubState extends MusicBeatSubstate
 	];
 
 	var menu:String = "default";
+	var checker:FlxBackdrop = new FlxBackdrop(Paths.image('Theme/Main/Main_Checker'), 0.2, 0.2, true, true);
 
-	var pauseMusic:FlxSound;
+	var pauseMusic:FlxSound = new FlxSound().loadEmbedded(Paths.music('breakfast'), true, true);
 
-	var scoreWarning:FlxText;
+	var scoreWarning:FlxText = new FlxText(20, 15 + 64, 0, "Remember, changing options invalidates your score!", 32);
 	var warningAmountLols:Int = 0;
 
-	public function new(x:Float, y:Float)
+	public function new()
 	{
+		super();
+
 		var optionsArray = menus.get("options");
 
 		switch(utilities.Options.getData("playAs"))
@@ -55,11 +59,8 @@ class PauseSubState extends MusicBeatSubstate
 				menus.set("options", optionsArray);
 		}
 
-		super();
-
-		pauseMusic = new FlxSound().loadEmbedded(Paths.music('breakfast'), true, true);
 		pauseMusic.volume = 0;
-		pauseMusic.play(false, FlxG.random.int(0, Std.int(pauseMusic.length / 2)));
+		pauseMusic.play();
 
 		FlxG.sound.list.add(pauseMusic);
 
@@ -67,31 +68,31 @@ class PauseSubState extends MusicBeatSubstate
 		bg.alpha = 0;
 		bg.scrollFactor.set();
 		add(bg);
+		
+		add(checker);
+		checker.alpha = 0;
+		checker.scrollFactor.set(0.07,0);
 
 		var levelInfo:FlxText = new FlxText(20, 15, 0, "", 32);
 		levelInfo.text += PlayState.SONG.song;
-		levelInfo.scrollFactor.set();
-		levelInfo.setFormat(Paths.font("Koda135759-vmm2O.ttf"), 32, FlxColor.WHITE, RIGHT);
+		levelInfo.setFormat(Paths.font("vcr.ttf"), 32, FlxColor.WHITE, RIGHT);
 		levelInfo.updateHitbox();
 		add(levelInfo);
 
 		var levelDifficulty:FlxText = new FlxText(20, 15 + 32, 0, "", 32);
 		levelDifficulty.text += PlayState.storyDifficultyStr.toUpperCase();
-		levelDifficulty.scrollFactor.set();
-		levelDifficulty.setFormat(Paths.font('Koda135759-vmm2O.ttf'), 32, FlxColor.WHITE, RIGHT);
+		levelDifficulty.setFormat(Paths.font('vcr.ttf'), 32, FlxColor.WHITE, RIGHT);
 		levelDifficulty.updateHitbox();
 		add(levelDifficulty);
 
 		var blueballedTxt:FlxText = new FlxText(20, 15 + 64, 0, "", 32);
 		blueballedTxt.text = "Die: " + PlayState.deathCounter;
 		blueballedTxt.scrollFactor.set();
-		blueballedTxt.setFormat(Paths.font('Koda135759-vmm2O.ttf'), 32);
+		blueballedTxt.setFormat(Paths.font('vcr.ttf'), 32);
 		blueballedTxt.updateHitbox();
 		add(blueballedTxt);
 
-		scoreWarning = new FlxText(20, 15 + 64, 0, "Remember, changing options invalidates your score!", 32);
-		scoreWarning.scrollFactor.set();
-		scoreWarning.setFormat(Paths.font("Koda135759-vmm2O.ttf"), 32, FlxColor.WHITE, RIGHT);
+		scoreWarning.setFormat(Paths.font("vcr.ttf"), 32, FlxColor.WHITE, RIGHT);
 		scoreWarning.updateHitbox();
 		scoreWarning.screenCenter(X);
 		add(scoreWarning);
@@ -106,6 +107,7 @@ class PauseSubState extends MusicBeatSubstate
 		blueballedTxt.x = FlxG.width - (blueballedTxt.width + 20);
 
 		FlxTween.tween(bg, {alpha: 0.6}, 0.4, {ease: FlxEase.quartInOut});
+		FlxTween.tween(checker, {alpha: 0.6}, 0.4, {ease: FlxEase.quartInOut});
 		FlxTween.tween(levelInfo, {alpha: 1, y: 20}, 0.4, {ease: FlxEase.quartInOut, startDelay: 0.3});
 		FlxTween.tween(levelDifficulty, {alpha: 1, y: levelDifficulty.y + 5}, 0.4, {ease: FlxEase.quartInOut, startDelay: 0.5});
 		FlxTween.tween(blueballedTxt, {alpha: 1, y: blueballedTxt.y + 5}, 0.4, {ease: FlxEase.quartInOut, startDelay: 0.7});
@@ -113,7 +115,6 @@ class PauseSubState extends MusicBeatSubstate
 
 		FlxTween.tween(scoreWarning, {alpha: 0, y: scoreWarning.y - 10}, 0.4, {ease: FlxEase.quartInOut, startDelay: 4});
 
-		grpMenuShit = new FlxTypedGroup<Alphabet>();
 		add(grpMenuShit);
 
 		updateAlphabets();
@@ -129,6 +130,8 @@ class PauseSubState extends MusicBeatSubstate
 			pauseMusic.volume += 0.01 * elapsed;
 
 		super.update(elapsed);
+		checker.x -= 0.45;
+		checker.y -= 0.16;
 
 		var upP = controls.UP_P;
 		var downP = controls.DOWN_P;
@@ -139,6 +142,30 @@ class PauseSubState extends MusicBeatSubstate
 
 		switch(warningAmountLols)
 		{
+			case 2:
+				scoreWarning.text = "Remember? Changing options invalidates your score.";
+			case 3:
+				scoreWarning.text = "Remember.? Changing options invalidates your score..?";
+			case 4:
+				scoreWarning.text = "Remember, changing options invalidates your score!\n(what are you doing)";
+			case 5:
+				scoreWarning.text = "Remember changing options, invalidates your score!";
+			case 6:
+				scoreWarning.text = "Remember changing, options invalidates your score!";
+			case 7:
+				scoreWarning.text = "Remember changing options invalidates, your score!";
+			case 8:
+				scoreWarning.text = "Remember changing options invalidates your, score!";
+			case 9:
+				scoreWarning.text = "Remember changing options invalidates your score!";
+			#if debug
+			case 10:
+				scoreWarning.text = "debug mode go brrrrrrrrrrrrrrrr";
+			#end
+			#if NO_PRELOAD_ALL
+			case 11:
+				scoreWarning.text = "haha web!! laugh at this user";
+			#end
 			case 50:
 				scoreWarning.text = "What are you doing?";
 			case 69:
@@ -169,6 +196,9 @@ class PauseSubState extends MusicBeatSubstate
 			switch(daSelected.toLowerCase())
 			{
 				case "resume":
+					pauseMusic.stop();
+					pauseMusic.destroy();
+					
 					close();
 				case "restart song":
 					menu = "restart";
@@ -365,21 +395,15 @@ class PauseSubState extends MusicBeatSubstate
 
 		for (i in 0...menus.get(menu).length)
 		{
-			var songText:Alphabet = new Alphabet(0, (70 * i) + 30, menus.get(menu)[i], true, false);
+			var songText:Alphabet = new Alphabet(0, (70 * i) + 30, menus.get(menu)[i], true);
 			songText.isMenuItem = true;
 			songText.targetY = i;
+
 			grpMenuShit.add(songText);
 		}
 
 		curSelected = 0;
 		changeSelection();
-	}
-
-	override function destroy()
-	{
-		pauseMusic.destroy();
-
-		super.destroy();
 	}
 
 	function changeSelection(change:Int = 0):Void

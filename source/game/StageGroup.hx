@@ -65,23 +65,6 @@ class StageGroup extends FlxGroup
     // SCHOOL STUFF
     private var bgGirls:BackgroundGirls;
 
-     // WASTELAND STUFF
-     private var watchTower:FlxSprite;
-     private var rollingTank:FlxSprite;
- 
-     private var tankAngle:Float = FlxG.random.int(-90, 45);
-     private var tankSpeed:Float = FlxG.random.float(5, 7);
- 
-     private var tankMen:Array<FlxSprite> = [];
- 
-     public var tankSpeedJohn:Array<Float> = [];
-     public var goingRightJohn:Array<Bool> = [];
-     public var endingOffsetJohn:Array<Float> = [];
-     public var strumTimeJohn:Array<Dynamic> = [];
-     public var gf:Character = null;
- 
-     public var johns:FlxTypedGroup<FlxSprite>; //from johns to stumtimejohn is the idenifiers for the bopping shit
-
     // other
 
     private var onBeatHit_Group:FlxTypedGroup<FlxSprite> = new FlxTypedGroup<FlxSprite>();
@@ -98,7 +81,7 @@ class StageGroup extends FlxGroup
         if(newStage != null)
             stage = newStage;
 
-        var bruhStages = ['school','school-mad','evil-school','wasteland','wasteland-stress'];
+        var bruhStages = ['school','school-mad','evil-school'];
 
         var stagesNormally = CoolUtil.coolTextFile(Paths.txt('stageList'));
 
@@ -121,12 +104,12 @@ class StageGroup extends FlxGroup
             {
                 case "school":
                 {
-                    player_2_Point.x = 379;
-                    player_2_Point.y = 928;
+                    player_2_Point.x = 380;
+                    player_2_Point.y = 890;
                     gf_Point.x = 709;
                     gf_Point.y = 856;
-                    player_1_Point.x = 993;
-                    player_1_Point.y = 944;
+                    player_1_Point.x = 1015;
+                    player_1_Point.y = 885;
 
                     var bgSky = new FlxSprite().loadGraphic(Paths.image(stage + '/weebSky', 'stages'));
                     bgSky.scrollFactor.set(0.1, 0.1);
@@ -272,268 +255,6 @@ class StageGroup extends FlxGroup
                     bg.scale.set(6, 6);
                     add(bg);
                 }
-                case 'wasteland':
-                {
-                    camZoom = 0.9;
-        
-                    player_2_Point.x = 245;
-                    player_2_Point.y = 900;
-                    gf_Point.x = 707;
-                    gf_Point.y = 750;
-                    player_1_Point.x = 1050;
-                    player_1_Point.y = 900;
-    
-                    var sky = new FlxSprite(-400, -400);
-                    sky.scrollFactor.set(0, 0);
-                    sky.loadGraphic(Paths.image('wasteland/tankSky', 'shared'));
-                    add(sky);
-        
-                    var clouds = new FlxSprite(FlxG.random.int(-700, -100), FlxG.random.int(-20, 20));
-                    clouds.scrollFactor.set(0.1, 0.1);
-                    clouds.loadGraphic(Paths.image('wasteland/tankClouds', 'shared'));
-                    clouds.velocity.set(FlxG.random.float(5, 15));
-                    add(clouds);
-        
-                    var mountains = new FlxSprite(-300, -20);
-                    mountains.scrollFactor.set(0.2, 0.2);
-                    mountains.loadGraphic(Paths.image('wasteland/tankMountains', 'shared'));
-                    mountains.setGraphicSize(Std.int(mountains.width * 1.2));
-                    mountains.updateHitbox();
-                    add(mountains);
-        
-                    var buildings = new FlxSprite(-200, 0);
-                    buildings.scrollFactor.set(0.3, 0.3);
-                    buildings.loadGraphic(Paths.image('wasteland/tankBuildings', 'shared'));
-                    buildings.setGraphicSize(Std.int(buildings.width * 1.1));
-                    buildings.updateHitbox();
-                    add(buildings);
-        
-                    var ruins = new FlxSprite(-200, 0);
-                    ruins.scrollFactor.set(0.35, 0.35);
-                    ruins.loadGraphic(Paths.image('wasteland/tankRuins', 'shared'));
-                    ruins.setGraphicSize(Std.int(ruins.width * 1.1));
-                    ruins.updateHitbox();
-                    add(ruins);
-        
-                    var leftSmoke = new FlxSprite(-200, -100);
-                    leftSmoke.scrollFactor.set(0.4, 0.4);
-                    leftSmoke.frames = Paths.getSparrowAtlas('wasteland/smokeLeft', 'shared');
-                    leftSmoke.animation.addByPrefix("default", "SmokeBlurLeft", 24, true);
-                    leftSmoke.animation.play("default");
-                    add(leftSmoke);
-        
-                    var rightSmoke = new FlxSprite(1100, -100);
-                    rightSmoke.scrollFactor.set(0.4, 0.4);
-                    rightSmoke.frames = Paths.getSparrowAtlas('wasteland/smokeRight', 'shared');
-                    rightSmoke.animation.addByPrefix("default", "SmokeRight", 24, true);
-                    rightSmoke.animation.play("default");
-                    add(rightSmoke);
-        
-                    watchTower = new FlxSprite(100, 50);
-                    watchTower.scrollFactor.set(0.5, 0.5);
-                    watchTower.frames = Paths.getSparrowAtlas('wasteland/tankWatchtower', 'shared');
-                    watchTower.animation.addByPrefix("idle", "watchtower gradient color", 24, false);
-                    watchTower.animation.play("idle");
-                    add(watchTower);
-        
-                    rollingTank = new FlxSprite(300, 300);
-                    rollingTank.scrollFactor.set(0.5, 0.5);
-                    rollingTank.frames = Paths.getSparrowAtlas('wasteland/tankRolling', 'shared');
-                    rollingTank.animation.addByPrefix("idle", "BG tank w lighting", 24, true);
-                    rollingTank.animation.play("idle");
-                    add(rollingTank);
-
-                    var ground = new FlxSprite(-420, -150);
-                    ground.loadGraphic(Paths.image('wasteland/tankGround', 'shared'));
-                    ground.setGraphicSize(Std.int(ground.width * 1.15));
-                    ground.updateHitbox();
-                    add(ground);
-        
-                    moveTank();
-        
-                    // THE FRONT MENSSSS
-        
-                    var tankMan0 = new FlxSprite(-500, 650);
-                    tankMan0.scrollFactor.set(1.7, 1.5);
-                    tankMan0.frames = Paths.getSparrowAtlas('wasteland/tank0', 'shared');
-                    tankMan0.animation.addByPrefix("idle", "fg", 24, false);
-                    tankMan0.animation.play("idle");
-                    PlayState.instance.foregroundSprites.add(tankMan0);
-        
-                    var tankMan1 = new FlxSprite(-300, 750);
-                    tankMan1.scrollFactor.set(2, 0.2);
-                    tankMan1.frames = Paths.getSparrowAtlas('wasteland/tank1', 'shared');
-                    tankMan1.animation.addByPrefix("idle", "fg", 24, false);
-                    tankMan1.animation.play("idle");
-                    PlayState.instance.foregroundSprites.add(tankMan1);
-        
-                    var tankMan2 = new FlxSprite(450, 940);
-                    tankMan2.scrollFactor.set(1.5, 1.5);
-                    tankMan2.frames = Paths.getSparrowAtlas('wasteland/tank2', 'shared');
-                    tankMan2.animation.addByPrefix("idle", "foreground", 24, false);
-                    tankMan2.animation.play("idle");
-                    PlayState.instance.foregroundSprites.add(tankMan2);
-        
-                    var tankMan3 = new FlxSprite(1300, 900);
-                    tankMan3.scrollFactor.set(1.5, 1.5);
-                    tankMan3.frames = Paths.getSparrowAtlas('wasteland/tank4', 'shared');
-                    tankMan3.animation.addByPrefix("idle", "fg", 24, false);
-                    tankMan3.animation.play("idle");
-                    PlayState.instance.foregroundSprites.add(tankMan3);
-        
-                    var tankMan4 = new FlxSprite(1300, 1350);
-                    tankMan4.scrollFactor.set(3.5, 2.5);
-                    tankMan4.frames = Paths.getSparrowAtlas('wasteland/tank3', 'shared');
-                    tankMan4.animation.addByPrefix("idle", "fg", 24, false);
-                    tankMan4.animation.play("idle");
-                    PlayState.instance.foregroundSprites.add(tankMan4);
-        
-                    var tankMan5 = new FlxSprite(1620, 700);
-                    tankMan5.scrollFactor.set(1.5, 1.5);
-                    tankMan5.frames = Paths.getSparrowAtlas('wasteland/tank5', 'shared');
-                    tankMan5.animation.addByPrefix("idle", "fg", 24, false);
-                    tankMan5.animation.play("idle");
-                    PlayState.instance.foregroundSprites.add(tankMan5);
-        
-                    tankMen.push(tankMan0);
-                    tankMen.push(tankMan1);
-                    tankMen.push(tankMan2);
-                    tankMen.push(tankMan3);
-                    tankMen.push(tankMan4);
-                    tankMen.push(tankMan5);
-                }
-                case 'wasteland-stress':
-                {
-                    camZoom = 0.9;
-
-                    player_2_Point.x = 245;
-                    player_2_Point.y = 900;
-                    gf_Point.x = 707;
-                    gf_Point.y = 750;
-                    player_1_Point.x = 1050;
-                    player_1_Point.y = 900;
-        
-                    var sky = new FlxSprite(-400, -400);
-                    sky.scrollFactor.set(0, 0);
-                    sky.loadGraphic(Paths.image('wasteland/tankSky', 'shared'));
-                    add(sky);
-        
-                    var clouds = new FlxSprite(FlxG.random.int(-700, -100), FlxG.random.int(-20, 20));
-                    clouds.scrollFactor.set(0.1, 0.1);
-                    clouds.loadGraphic(Paths.image('wasteland/tankClouds', 'shared'));
-                    clouds.velocity.set(FlxG.random.float(5, 15));
-                    add(clouds);
-        
-                    var mountains = new FlxSprite(-300, -20);
-                    mountains.scrollFactor.set(0.2, 0.2);
-                    mountains.loadGraphic(Paths.image('wasteland/tankMountains', 'shared'));
-                    mountains.setGraphicSize(Std.int(mountains.width * 1.2));
-                    mountains.updateHitbox();
-                    add(mountains);
-        
-                    var buildings = new FlxSprite(-200, 0);
-                    buildings.scrollFactor.set(0.3, 0.3);
-                    buildings.loadGraphic(Paths.image('wasteland/tankBuildings', 'shared'));
-                    buildings.setGraphicSize(Std.int(buildings.width * 1.1));
-                    buildings.updateHitbox();
-                    add(buildings);
-        
-                    var ruins = new FlxSprite(-200, 0);
-                    ruins.scrollFactor.set(0.35, 0.35);
-                    ruins.loadGraphic(Paths.image('wasteland/tankRuins', 'shared'));
-                    ruins.setGraphicSize(Std.int(ruins.width * 1.1));
-                    ruins.updateHitbox();
-                    add(ruins);
-        
-                    var leftSmoke = new FlxSprite(-200, -100);
-                    leftSmoke.scrollFactor.set(0.4, 0.4);
-                    leftSmoke.frames = Paths.getSparrowAtlas('wasteland/smokeLeft', 'shared');
-                    leftSmoke.animation.addByPrefix("default", "SmokeBlurLeft", 24, true);
-                    leftSmoke.animation.play("default");
-                    add(leftSmoke);
-        
-                    var rightSmoke = new FlxSprite(1100, -100);
-                    rightSmoke.scrollFactor.set(0.4, 0.4);
-                    rightSmoke.frames = Paths.getSparrowAtlas('wasteland/smokeRight', 'shared');
-                    rightSmoke.animation.addByPrefix("default", "SmokeRight", 24, true);
-                    rightSmoke.animation.play("default");
-                    add(rightSmoke);
-        
-                    watchTower = new FlxSprite(100, 50);
-                    watchTower.scrollFactor.set(0.5, 0.5);
-                    watchTower.frames = Paths.getSparrowAtlas('wasteland/tankWatchtower', 'shared');
-                    watchTower.animation.addByPrefix("idle", "watchtower gradient color", 24, false);
-                    watchTower.animation.play("idle");
-                    add(watchTower);
-        
-                    rollingTank = new FlxSprite(300, 300);
-                    rollingTank.scrollFactor.set(0.5, 0.5);
-                    rollingTank.frames = Paths.getSparrowAtlas('wasteland/tankRolling', 'shared');
-                    rollingTank.animation.addByPrefix("idle", "BG tank w lighting", 24, true);
-                    rollingTank.animation.play("idle");
-                    add(rollingTank);
-                    johns = new FlxTypedGroup<FlxSprite>();
-                        add(johns);
-        
-                    var ground = new FlxSprite(-420, -150);
-                    ground.loadGraphic(Paths.image('wasteland/tankGround', 'shared'));
-                    ground.setGraphicSize(Std.int(ground.width * 1.15));
-                    ground.updateHitbox();
-                    add(ground);
-        
-                    moveTank();
-        
-                    // THE FRONT MENSSSS
-        
-                    var tankMan0 = new FlxSprite(-500, 650);
-                    tankMan0.scrollFactor.set(1.7, 1.5);
-                    tankMan0.frames = Paths.getSparrowAtlas('wasteland/tank0', 'shared');
-                    tankMan0.animation.addByPrefix("idle", "fg", 24, false);
-                    tankMan0.animation.play("idle");
-                    PlayState.instance.foregroundSprites.add(tankMan0);
-        
-                    var tankMan1 = new FlxSprite(-300, 750);
-                    tankMan1.scrollFactor.set(2, 0.2);
-                    tankMan1.frames = Paths.getSparrowAtlas('wasteland/tank1', 'shared');
-                    tankMan1.animation.addByPrefix("idle", "fg", 24, false);
-                    tankMan1.animation.play("idle");
-                    PlayState.instance.foregroundSprites.add(tankMan1);
-        
-                    var tankMan2 = new FlxSprite(450, 940);
-                    tankMan2.scrollFactor.set(1.5, 1.5);
-                    tankMan2.frames = Paths.getSparrowAtlas('wasteland/tank2', 'shared');
-                    tankMan2.animation.addByPrefix("idle", "foreground", 24, false);
-                    tankMan2.animation.play("idle");
-                    PlayState.instance.foregroundSprites.add(tankMan2);
-        
-                    var tankMan3 = new FlxSprite(1300, 900);
-                    tankMan3.scrollFactor.set(1.5, 1.5);
-                    tankMan3.frames = Paths.getSparrowAtlas('wasteland/tank4', 'shared');
-                    tankMan3.animation.addByPrefix("idle", "fg", 24, false);
-                    tankMan3.animation.play("idle");
-                    PlayState.instance.foregroundSprites.add(tankMan3);
-        
-                    var tankMan4 = new FlxSprite(1300, 1350);
-                    tankMan4.scrollFactor.set(3.5, 2.5);
-                    tankMan4.frames = Paths.getSparrowAtlas('wasteland/tank3', 'shared');
-                    tankMan4.animation.addByPrefix("idle", "fg", 24, false);
-                    tankMan4.animation.play("idle");
-                    PlayState.instance.foregroundSprites.add(tankMan4);
-        
-                    var tankMan5 = new FlxSprite(1620, 700);
-                    tankMan5.scrollFactor.set(1.5, 1.5);
-                    tankMan5.frames = Paths.getSparrowAtlas('wasteland/tank5', 'shared');
-                    tankMan5.animation.addByPrefix("idle", "fg", 24, false);
-                    tankMan5.animation.play("idle");
-                    PlayState.instance.foregroundSprites.add(tankMan5);
-        
-                    tankMen.push(tankMan0);
-                    tankMen.push(tankMan1);
-                    tankMen.push(tankMan2);
-                    tankMen.push(tankMan3);
-                    tankMen.push(tankMan4);
-                    tankMen.push(tankMan5);
-                }
                 // CUSTOM SHIT
                 default:
                 {
@@ -673,7 +394,6 @@ class StageGroup extends FlxGroup
 
     public function setCharOffsets(?p1:Character, ?gf:Character, ?p2:Character):Void
     {
-
         if(p1 == null)
             p1 = PlayState.boyfriend;
 
@@ -774,24 +494,6 @@ class StageGroup extends FlxGroup
                 {
                     bgGirls.dance();
                 }
-                case 'wasteland':
-                {
-                watchTower.animation.play("idle", true);
-        
-                for(object in tankMen)
-                    {
-                        object.animation.play("idle", true);
-                    }
-                }
-                case 'wasteland-stress':
-                {
-                watchTower.animation.play("idle", true);
-        
-                for(object in tankMen)
-                    {
-                        object.animation.play("idle", true);
-                    }
-                }
             }
         }
     }
@@ -800,64 +502,7 @@ class StageGroup extends FlxGroup
     {
         super.update(elapsed);
 
-        switch(stage)
-        {
-            case 'wasteland':
-                moveTank();
-            case 'wasteland-stress':
-                moveTank();
-                var i = 0;
-				for (spr in johns.members) {
-					if (spr.x >= 1.2 * FlxG.width || spr.x <= -0.5 * FlxG.width)
-						spr.visible = false;
-					else
-						spr.visible = true;
-					if (spr.animation.curAnim.name == "run") {
-						var fuck = 0.74 * FlxG.width + endingOffsetJohn[i];
-						if (goingRightJohn[i]) {
-							fuck = 0.02 * FlxG.width - endingOffsetJohn[i];
-							spr.x = fuck + (Conductor.songPosition - strumTimeJohn[i]) * tankSpeedJohn[i];
-							spr.flipX = true;
-						} else {
-							spr.x = fuck - (Conductor.songPosition - strumTimeJohn[i]) * tankSpeedJohn[i];
-							spr.flipX = false;
-						}
-					}
-					if (Conductor.songPosition > strumTimeJohn[i]) {
-						spr.animation.play("shot");
-						if (goingRightJohn[i]) {
-							spr.offset.y = 200;
-							spr.offset.x = 300;
-						}
-					}
-					if (spr.animation.curAnim.name == "shot" && spr.animation.curAnim.curFrame >= spr.animation.curAnim.frames.length - 1) {
-						spr.kill();
-					}
-					i++;
-				}
-        }
-
         goodElapse = elapsed;
-    }
-
-    function resetJohn(x:Float, y:Int, goingRight:Bool, spr:FlxSprite, johnNum:Int) { //function for the tankmen to be reset after being killed
-		
-		spr.x = x;
-		spr.y = y;
-		goingRightJohn[johnNum] = goingRight;
-		endingOffsetJohn[johnNum] = FlxG.random.float(50, 200);
-		tankSpeedJohn[johnNum] = FlxG.random.float(0.6, 1);
-		 spr.flipX = if (goingRight) true else false;
-	}
-
-    //wasteland
-    function moveTank()
-    {
-        var tankX = 400;
-        tankAngle += FlxG.elapsed * tankSpeed;
-        rollingTank.angle = tankAngle - 90 + 15;
-        rollingTank.x = tankX + 1500 * Math.cos(Math.PI / 180 * (1 * tankAngle + 180));
-        rollingTank.y = 1300 + 1100 * Math.sin(Math.PI / 180 * (1 * tankAngle + 180));
     }
 
     // philly
@@ -942,6 +587,8 @@ typedef StageObject =
     var scroll_Factor:Array<Float>;
 
     var color:Array<Int>;
+
+    var FlipX:Bool;
 
     var uses_Frame_Width:Bool;
 

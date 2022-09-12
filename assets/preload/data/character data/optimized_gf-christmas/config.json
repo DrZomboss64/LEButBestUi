@@ -2,7 +2,6 @@
     "defaultFlipX": false,
     "dancesLeftAndRight": true,
     "imagePath": "Optimized_gfChristmas",
-    "spritesheetType": "SPARROW",
     "barColor": [186, 49, 104],
     "healthIcon": "gf",
     "animations": [

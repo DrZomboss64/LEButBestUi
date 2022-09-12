@@ -2,7 +2,6 @@
     "defaultFlipX": false,
     "dancesLeftAndRight": true,
     "imagePath": "spooky_kids_assets",
-    "spritesheetType": "SPARROW",
     "barColor":  [226, 147, 30],
     "animations": [
         {
@@ -40,12 +39,6 @@
         {
             "name": "singRIGHT",
             "animation_name": "spooky sing right",
-            "fps": 24,
-            "looped": false
-        },
-        {
-            "name": "hey",
-            "animation_name": "spooky kids YEAH!!",
             "fps": 24,
             "looped": false
         }

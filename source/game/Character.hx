@@ -21,10 +21,9 @@ class Character extends FlxSprite
 
 	public var isPlayer:Bool = false;
 	public var curCharacter:String = 'bf';
-	public var hasGun:Bool = false;
 
 	public var holdTimer:Float = 0;
-	public var animationNotes:Array<Dynamic> = [];
+	var animationNotes:Array<Dynamic> = [];
 
 	var dancesLeftAndRight:Bool = false;
 
@@ -67,214 +66,8 @@ class Character extends FlxSprite
 
 		switch (curCharacter)
 		{
-			case 'monster':
-				frames = Paths.getSparrowAtlas('characters/Monster_Assets', 'shared');
-				animation.addByPrefix('idle', 'monster idle', 24, false);
-				animation.addByPrefix('singUP', 'monster up note', 24, false);
-				animation.addByPrefix('singDOWN', 'monster down', 24, false);
-				// fixed this garbage lol
-				animation.addByPrefix('singLEFT', 'Monster Right note', 24, false);
-				animation.addByPrefix('singRIGHT', 'Monster left note', 24, false);
-
-				playAnim('idle');
-				barColor = FlxColor.fromRGB(245, 255, 105);
-			case 'monster-christmas':
-				frames = Paths.getSparrowAtlas('characters/monsterChristmas', 'shared');
-				animation.addByPrefix('idle', 'monster idle', 24, false);
-				animation.addByPrefix('singUP', 'monster up note', 24, false);
-				animation.addByPrefix('singDOWN', 'monster down', 24, false);
-				// fixed this too lol
-				animation.addByPrefix('singLEFT', 'Monster Right note', 24, false);
-				animation.addByPrefix('singRIGHT', 'Monster left note', 24, false);
-
-				playAnim('idle');
-				barColor = FlxColor.fromRGB(245, 255, 105);
-				icon = "monster";
-			case 'pico':
-				if(Options.getData("optimizedChars"))
-					frames = Paths.getSparrowAtlas('characters/Optimized_Pico_FNF_assetss', 'shared');
-				else
-					frames = Paths.getSparrowAtlas('characters/Pico_FNF_assetss', 'shared');
-
-				animation.addByPrefix('idle', "Pico Idle Dance", 24);
-				animation.addByPrefix('singUP', 'pico Up note0', 24, false);
-				animation.addByPrefix('singDOWN', 'Pico Down Note0', 24, false);
-
-				if (isPlayer)
-				{
-					animation.addByPrefix('singLEFT', 'Pico NOTE LEFT0', 24, false);
-					animation.addByPrefix('singRIGHT', 'Pico Note Right0', 24, false);
-					animation.addByPrefix('singRIGHTmiss', 'Pico Note Right Miss', 24, false);
-					animation.addByPrefix('singLEFTmiss', 'Pico NOTE LEFT miss', 24, false);
-				}
-				else
-				{
-					// Need to be flipped! REDO THIS LATER!
-					animation.addByPrefix('singLEFT', 'Pico Note Right0', 24, false);
-					animation.addByPrefix('singRIGHT', 'Pico NOTE LEFT0', 24, false);
-					animation.addByPrefix('singRIGHTmiss', 'Pico NOTE LEFT miss', 24, false);
-					animation.addByPrefix('singLEFTmiss', 'Pico Note Right Miss', 24, false);
-				}
-
-				animation.addByPrefix('singUPmiss', 'pico Up note miss', 24);
-				animation.addByPrefix('singDOWNmiss', 'Pico Down Note MISS', 24);
-
-				playAnim('idle');
-
-				flipX = true;
-				barColor = FlxColor.fromRGB(205, 229, 112);
-				cameraOffset = [50,0];
-			case 'bf-pixel':
-				swapLeftAndRightSingPlayer = false;
-
-				frames = Paths.getSparrowAtlas('characters/bfPixel', 'shared');
-				animation.addByPrefix('idle', 'BF IDLE', 24, false);
-				animation.addByPrefix('singUP', 'BF UP NOTE', 24, false);
-				animation.addByPrefix('singLEFT', 'BF LEFT NOTE', 24, false);
-				animation.addByPrefix('singRIGHT', 'BF RIGHT NOTE', 24, false);
-				animation.addByPrefix('singDOWN', 'BF DOWN NOTE', 24, false);
-				animation.addByPrefix('singUPmiss', 'BF UP MISS', 24, false);
-				animation.addByPrefix('singLEFTmiss', 'BF LEFT MISS', 24, false);
-				animation.addByPrefix('singRIGHTmiss', 'BF RIGHT MISS', 24, false);
-				animation.addByPrefix('singDOWNmiss', 'BF DOWN MISS', 24, false);
-
-				animation.addByPrefix('hey', 'BF Peace Sign', 24, false);
-
-				setGraphicSize(Std.int(width * 6));
-
-				playAnim('idle');
-
-				//width -= 100;
-				//height -= 100;
-
-				cameraOffset = [-100, -200];
-				positioningOffset = [183, 202];
-
-				antialiasing = false;
-
-				flipX = true;
-
-				barColor = FlxColor.fromRGB(123, 214, 246);
-				offsetsFlipWhenEnemy = true;
-				offsetsFlipWhenPlayer = false;
-
-				deathCharacter = "bf-pixel-dead";
-			case 'bf-pixel-dead':
-				swapLeftAndRightSingPlayer = false;
-
-				frames = Paths.getSparrowAtlas('characters/bfPixelsDEAD', 'shared');
-				animation.addByPrefix('singUP', "BF Dies pixel", 24, false);
-				animation.addByPrefix('firstDeath', "BF Dies pixel", 24, false);
-				animation.addByPrefix('deathLoop', "Retry Loop", 24, true);
-				animation.addByPrefix('deathConfirm', "RETRY CONFIRM", 24, false);
-
-				playAnim('firstDeath');
-				// pixel bullshit
-				setGraphicSize(Std.int(width * 6));
-				
-				antialiasing = false;
-				flipX = true;
-				barColor = FlxColor.fromRGB(123, 214, 246);
-			case 'senpai':
-				frames = Paths.getSparrowAtlas('characters/senpai', 'shared');
-				animation.addByPrefix('idle', 'Senpai Idle', 24, false);
-				animation.addByPrefix('singUP', 'SENPAI UP NOTE', 24, false);
-				animation.addByPrefix('singLEFT', 'SENPAI LEFT NOTE', 24, false);
-				animation.addByPrefix('singRIGHT', 'SENPAI RIGHT NOTE', 24, false);
-				animation.addByPrefix('singDOWN', 'SENPAI DOWN NOTE', 24, false);
-
-				playAnim('idle');
-
-				setGraphicSize(Std.int(width * 6));
-				updateHitbox();
-
-				cameraOffset = [15, 0];
-				positioningOffset = [317, 522];
-
-				antialiasing = false;
-				barColor = FlxColor.fromRGB(255, 170, 111);
-			case 'senpai-angry':
-				frames = Paths.getSparrowAtlas('characters/senpai', 'shared');
-				animation.addByPrefix('idle', 'Angry Senpai Idle', 24, false);
-				animation.addByPrefix('singUP', 'Angry Senpai UP NOTE', 24, false);
-				animation.addByPrefix('singLEFT', 'Angry Senpai LEFT NOTE', 24, false);
-				animation.addByPrefix('singRIGHT', 'Angry Senpai RIGHT NOTE', 24, false);
-				animation.addByPrefix('singDOWN', 'Angry Senpai DOWN NOTE', 24, false);
-
-				playAnim('idle');
-
-				setGraphicSize(Std.int(width * 6));
-				updateHitbox();
-
-				cameraOffset = [15, 0];
-				positioningOffset = [317, 522];
-
-				antialiasing = false;
-				barColor = FlxColor.fromRGB(255, 170, 111);
-			case 'spirit':
-				frames = Paths.getPackerAtlas('characters/spirit', 'shared');
-				animation.addByPrefix('idle', "idle spirit_", 24, false);
-				animation.addByPrefix('singUP', "up_", 24, false);
-				animation.addByPrefix('singRIGHT', "right_", 24, false);
-				animation.addByPrefix('singLEFT', "left_", 24, false);
-				animation.addByPrefix('singDOWN', "spirit down_", 24, false);
-
-				setGraphicSize(Std.int(width * 6));
-				updateHitbox();
-
-				playAnim('idle');
-
-				positioningOffset = [67, 122];
-
-				antialiasing = false;
-				barColor = FlxColor.fromRGB(255, 60, 110);
-
-				coolTrail = new FlxTrail(this, null, 4, 24, 0.3, 0.069);
-			case 'parents-christmas':
-				frames = Paths.getSparrowAtlas('characters/mom_dad_christmas_assets', 'shared');
-				animation.addByPrefix('idle', 'Parent Christmas Idle', 24, false);
-				animation.addByPrefix('singUP', 'Parent Up Note Dad', 24, false);
-				animation.addByPrefix('singDOWN', 'Parent Down Note Dad', 24, false);
-				animation.addByPrefix('singLEFT', 'Parent Left Note Dad', 24, false);
-				animation.addByPrefix('singRIGHT', 'Parent Right Note Dad', 24, false);
-
-				animation.addByPrefix('singUP-alt', 'Parent Up Note Mom', 24, false);
-
-				animation.addByPrefix('singDOWN-alt', 'Parent Down Note Mom', 24, false);
-				animation.addByPrefix('singLEFT-alt', 'Parent Left Note Mom', 24, false);
-				animation.addByPrefix('singRIGHT-alt', 'Parent Right Note Mom', 24, false);
-
-				playAnim('idle');
-				barColor = FlxColor.fromRGB(199, 111, 211);
-			case 'tankman':
-				frames = Paths.getSparrowAtlas('characters/tankmanCaptain', 'shared');
-				animation.addByPrefix('idle', "Tankman Idle Dance", 24);
-				animation.addByPrefix('oldSingUP', 'Tankman UP note ', 24, false);
-				animation.addByPrefix('singUP', 'Tankman UP note ', 24, false);
-				animation.addByPrefix('oldSingDOWN', 'Tankman DOWN note ', 24, false);
-				animation.addByPrefix('singDOWN', 'Tankman DOWN note ', 24, false);
-				animation.addByPrefix('singLEFT', 'Tankman Right Note ', 24, false);
-				animation.addByPrefix('singRIGHT', 'Tankman Note Left ', 24, false);
-					
-				animation.addByPrefix('ughAnim', 'TANKMAN UGH', 24, false);
-				animation.addByPrefix('prettyGoodAnim', 'PRETTY GOOD', 24, false);
-				
-				barColor = FlxColor.fromRGB(20, 20, 20);
-	
-				playAnim('idle');
-	
-				flipX = true;
-			case 'pico-speaker':				
-				frames = Paths.getSparrowAtlas('characters/picoSpeaker','shared');
-				animation.addByIndices('idle', 'Pico shoot 1', [10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24], "", 24, true);
-				animation.addByPrefix('shoot1', 'Pico shoot 1', 24, false);
-				animation.addByPrefix('shoot2', 'Pico shoot 2', 24, false);
-				animation.addByPrefix('shoot3', 'Pico shoot 3', 24, false);
-				animation.addByPrefix('shoot4', 'Pico shoot 4', 24, false);
-	
-				playAnim('shoot1');
-				loadMappedAnims();
-				hasGun = true;
+			//Unhardcoded this shit.
+			//You're welcome, Leather.
 			case '':
 				trace("NO VALUE THINGY LOL DONT LOAD SHIT");
 				deathCharacter = "bf-dead";
@@ -351,7 +144,7 @@ class Character extends FlxSprite
 			curCharacter = characterName;
 		}
 
-		if(Assets.exists(Paths.json("character data/optimized_" + characterName + "/config")) && Options.getData("optimizedChars"))
+		if(Options.getData("optimizedChars") && Assets.exists(Paths.json("character data/optimized_" + characterName + "/config")))
 			characterName = "optimized_" + characterName;
 
 		var rawJson = Assets.getText(Paths.json("character data/" + characterName + "/config")).trim();
@@ -393,11 +186,11 @@ class Character extends FlxSprite
 			dancesLeftAndRight = config.dancesLeftAndRight;
 
 			if(Assets.exists(Paths.file("images/characters/" + config.imagePath + ".txt", TEXT, "shared")))
-				frames = Paths.getPackerAtlas('characters/' + config.imagePath, 'shared');
+				frames = Paths.getPackerAtlas('characters/' + config.imagePath);
 			else if(Assets.exists(Paths.file("images/characters/" + config.imagePath + "/Animation.json", TEXT, "shared")))
 				frames = AtlasFrameMaker.construct("characters/" + config.imagePath);
 			else
-				frames = Paths.getSparrowAtlas('characters/' + config.imagePath, 'shared');
+				frames = Paths.getSparrowAtlas('characters/' + config.imagePath);
 
 			var size:Null<Float> = config.graphicSize;
 
@@ -405,11 +198,11 @@ class Character extends FlxSprite
 				size = config.graphicsSize;
 
 			if(size != null)
-				setGraphicSize(Std.int(width * size));
+				scale.set(size, size);
 
 			for(selected_animation in config.animations)
 			{
-				if(selected_animation.indices != null)
+				if(selected_animation.indices != null && selected_animation.indices.length > 0)
 				{
 					animation.addByIndices(
 						selected_animation.name,
@@ -483,7 +276,7 @@ class Character extends FlxSprite
 		}
 
 		if(config.barColor == null)
-			config.barColor = [255,0,0];
+			config.barColor = [255, 0, 0];
 
 		barColor = FlxColor.fromRGB(config.barColor[0], config.barColor[1], config.barColor[2]);
 
@@ -495,7 +288,9 @@ class Character extends FlxSprite
 			cameraOffset = config.cameraOffset;
 		}
 
-		if(config.deathCharacterName != null)
+		if(config.deathCharacter != null)
+			deathCharacter = config.deathCharacter;
+		else if(config.deathCharacterName != null)
 			deathCharacter = config.deathCharacterName;
 		else
 			deathCharacter = "bf-dead";
@@ -523,11 +318,6 @@ class Character extends FlxSprite
 		}
 	}
 
-	public function quickAnimAdd(animName:String, animPrefix:String)
-	{
-		animation.addByPrefix(animName, animPrefix, 24, false);
-	}
-
 	public var shouldDance:Bool = true;
 
 	override function update(elapsed:Float)
@@ -537,30 +327,14 @@ class Character extends FlxSprite
 			if (!isPlayer)
 			{
 				if (animation.curAnim.name.startsWith('sing'))
-				{
 					holdTimer += elapsed * (FlxG.state == PlayState.instance ? PlayState.songMultiplier : 1);
-				}
 
 				var dadVar:Float = 4;
 
 				if (curCharacter == 'dad')
 					dadVar = 6.1;
-
-				if (hasGun) {
-					if (0 < animationNotes.length && Conductor.songPosition > animationNotes[0][0]) {
-						var idkWhatThisISLol = 1;
-						if (2 <= animationNotes[0][1]) {
-							idkWhatThisISLol = 3;				
-						}
-			
-						idkWhatThisISLol += FlxG.random.int(0, 1);
-						playAnim("shoot" + idkWhatThisISLol, true);
-						animationNotes.shift();
-							
-					}
-				}
 				
-				if (holdTimer >= Conductor.stepCrochet * dadVar * 0.001)
+				if (holdTimer >= Conductor.stepCrochet * dadVar * 0.0011)
 				{
 					dance(mostRecentAlt);
 					holdTimer = 0;
@@ -630,28 +404,6 @@ class Character extends FlxSprite
 			offset.set(daOffset[0], daOffset[1]);
 		else
 			offset.set(0, 0);
-	}
-
-	public function loadMappedAnims() {
-		// todo, make better
-		var picoAnims = Song.loadFromJson(curCharacter, "stress").notes;
-		trace('blammedlol');
-		for (anim in picoAnims) {
-			// this code looks fucking awful because I am reading the compiled
-			// html build
-			// mod collection lmao
-			for (note in anim.sectionNotes) {
-				animationNotes.push(note);
-			}
-		}
-		trace(animationNotes);
-		animationNotes.sort(sortAnims);
-	}
-
-	function sortAnims(a, b) {
-		var aThing = a[0];
-		var bThing = b[0];
-		return aThing < bThing ? -1 : 1;
 	}
 
 	public function addOffset(name:String, x:Float = 0, y:Float = 0)

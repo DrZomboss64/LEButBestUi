@@ -2,7 +2,6 @@
     "defaultFlipX": false,
     "dancesLeftAndRight": false,
     "imagePath": "Mom_Assets",
-    "spritesheetType": "SPARROW",
     "barColor":  [231, 109, 166],
     "animations": [
         {
