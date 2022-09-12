@@ -10,10 +10,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Updated to latest Leather Engine git build.
 - Credits State (Original by Psych Engine)
 - Notes Per Second
-- Time Bar Colors
-- Miss Sounds
-- GF Combo Sounds
-- Combo Flash
+- Time Bar Colors by Vortex2Oblivion
+- Miss Sounds off &/or on
+- GF Combo Sounds by YOUK-dev
+- Combo Flash by YOUK-dev
 - Custom Judgements
 - More Custom Rating Mode
 - Rainbow FPS
