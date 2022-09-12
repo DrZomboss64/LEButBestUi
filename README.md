@@ -12,8 +12,6 @@ This is the repository for Leather Engine, an engine created for making and play
 
 ### IMPORTANT:
 
-Use Polymod 1.5.2 as it's the version that the engine is currently designed for.
-
 For build instructions go to [Build.md](https://github.com/Leather128/LeatherEngine/blob/main/Build.md)
 
 ## Features
@@ -59,3 +57,7 @@ You can load, share, and play replays of songs you've played! They can even be i
 * ShadowMario - Color Swap Shader (for notes and stuffs) + some really weird modchart stuff that im too stupid to know lol
 
 * Smokey555 - Adobe Animate Spritemap -> FlxFramesCollection Support
+
+* YOUK-dev - for Flash on x10 combo Gf voice on x10 combo
+
+* Verwex - for Custom MainMenuState And MainPlayState
