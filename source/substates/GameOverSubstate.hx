@@ -128,9 +128,17 @@ class GameOverSubstate extends MusicBeatSubstate
 			FlxG.camera.follow(camFollow, LOCKON, 0.01 * (60 / Main.display.currentFPS));
 		}
 
+		var daStage = PlayState.curStage; //the gameover voicelines
+
 		if (bf.animation.curAnim.name == 'firstDeath' && bf.animation.curAnim.finished)
 		{
 			var soundPath = Paths.music("deaths/bf-dead/loop");
+
+			
+			if (daStage == 'wasteland')
+			{
+				FlxG.sound.play(Paths.sound('jeffGameover/jeffGameover-' + FlxG.random.int(1, 25), 'shared'));
+			}
 
 			if(Assets.exists(Paths.music("deaths/" + bf.curCharacter + "/loop")))
 				soundPath = Paths.music("deaths/" + bf.curCharacter + "/loop");

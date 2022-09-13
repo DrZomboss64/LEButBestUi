@@ -21,10 +21,6 @@
             "value": true
         },
         {
-            "option": "logoBL",
-            "value": true
-        },
-        {
             "option": "notesperSecond",
             "value": false
         },
