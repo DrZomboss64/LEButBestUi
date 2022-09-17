@@ -113,6 +113,7 @@ class OptionsMenu extends MusicBeatState
 			new BoolOption("Animated Backgrounds", "animatedBGs", 6),
 			new BoolOption("Preload Stage Events", "preloadChangeBGs", 7),
 			new BoolOption("Title Logo Play Menu", "logoBL", 8),
+			new BoolOption("No Lag For Botplay", "noLagForBotplay", 9)
 		],
 		[
 			"Info Display",
@@ -121,7 +122,7 @@ class OptionsMenu extends MusicBeatState
 			new BoolOption("FPS Counter", "fpsCounter", 3),
 			new BoolOption("Memory Counter", "memoryCounter", 4),
 			new BoolOption("Version Display", "versionDisplay", 4),
-			new BoolOption("FPS Rainbow", "rainbowFPS", 5)
+			//new BoolOption("FPS Rainbow", "rainbowFPS", 5)
 		],
 		[
 			"Judgements",

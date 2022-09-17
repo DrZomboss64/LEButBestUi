@@ -3261,7 +3261,8 @@ class PlayState extends MusicBeatState
 		}
 
 		songScore += score;
-
+		
+		if (utilities.Options.getData("noLagForBotplay")) {
 		rating.alpha = 1;
 
 		rating.loadGraphic(uiMap.get(daRating), false, 0, 0, true, daRating);
@@ -3414,6 +3415,8 @@ class PlayState extends MusicBeatState
 
 		calculateAccuracy();
 	}
+	}
+	
 
 	public function updateScoreText()
 	{

@@ -5,6 +5,10 @@
             "value": true
         },
         {
+            "option": "noLagForBotplay",
+            "value": false
+        },
+        {
             "option": "rainbowFPS",
             "value": true
         },
@@ -26,11 +30,11 @@
         },
         {
             "option": "comboFlash",
-            "value": false
+            "value": true
         },
         {
             "option": "comboSound",
-            "value": false
+            "value": true
         },
         {
             "option": "missSounds",
