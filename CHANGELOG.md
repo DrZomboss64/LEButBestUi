@@ -21,6 +21,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Custom Hitsound
 - Add Health in Score Txt
 - Zoom in the chart edtior.
+- You can now remove the Score Pop ups
 
 ### Fixed
 
