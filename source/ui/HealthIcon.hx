@@ -98,6 +98,8 @@ class HealthIcon extends TrackerSprite
 
 		startSize = scale.x;
 
+		antialiasing = utilities.Options.getData("antialiasing");
+
 		// antialiasing override
 		switch(char)
 		{

@@ -51,6 +51,8 @@ class StrumNote extends FlxSprite
 
 		super(x, y);
 
+		antialiasing = utilities.Options.getData("antialiasing");
+
 		noteColor = NoteColors.getNoteColor(NoteVariables.Other_Note_Anim_Stuff[keyCount - 1][noteData]);
 
 		colorSwap = new ColorSwap();

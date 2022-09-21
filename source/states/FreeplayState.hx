@@ -145,16 +145,20 @@ class FreeplayState extends MusicBeatState
 			bg = new FlxSprite().loadGraphic(Paths.image('menuDesat'));
 		else
 			bg = new FlxSprite().makeGraphic(1286, 730, FlxColor.fromString("#E1E1E1"), false, "optimizedMenuDesat");
-		
+
+		bg.antialiasing = utilities.Options.getData("antialiasing");
+
 		add(bg);
 
 		gradientBar = FlxGradient.createGradientFlxSprite(Math.round(FlxG.width), 512, [0x00ff0000, 0x558DE7E5, 0xAAE6F0A9], 1, 90, true);
+		gradientBar.antialiasing = utilities.Options.getData("antialiasing");
 		gradientBar.y = FlxG.height - gradientBar.height;
 		add(gradientBar);
 		gradientBar.scrollFactor.set(0, 0);
 
 		add(checker);
 		checker.scrollFactor.set(0, 0.07);
+		checker.antialiasing = utilities.Options.getData("antialiasing");
 
 		grpSongs = new FlxTypedGroup<Alphabet>();
 		add(grpSongs);

@@ -9,6 +9,10 @@
             "value": false
         },
         {
+            "option": "scoreZoom",
+            "value": true
+        },
+        {
             "option": "rainbowFPS",
             "value": true
         },
@@ -163,6 +167,10 @@
         {
             "option": "playAs",
             "value": "bf"
+        },
+        {
+            "option": "iconBounce",
+            "value": "Default"
         },
         {
             "option": "useCustomScrollSpeed",

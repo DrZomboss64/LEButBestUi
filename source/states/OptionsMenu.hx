@@ -56,7 +56,6 @@ class OptionsMenu extends MusicBeatState
 			new PageOption("Sound Effects", 2, "Sound Effects"),
 			new PageOption("Rythm Games additions", 3, "Rythm Games additions"),
 			new PageOption("Appearance", 4, "Appearance"),
-			new PageOption("Extra", 5, "Extra"),
 			new BoolOption("Bot", "botplay", 6),
 			new BoolOption("Quick Restart", "quickRestart", 7),
 			new BoolOption("No Death", "noDeath", 8),
@@ -193,15 +192,12 @@ class OptionsMenu extends MusicBeatState
 			new BoolOption("No Miss", "noHit", 2)
 		],
 		[
-			"Extra",
-			new PageOption("Back", 0, "Gameplay"),
-			//new BoolOption("Green Screen", "greenScreen", 1),
-			new BoolOption("Time Bar Colors", "barColors", 2) // thx Vortex2Oblivion
-		],
-		[
 			"Appearance",
-			new PageOption("Back", 0, "Categories"),
-			new BoolOption("Notes Per Second", "notesperSecond", 1)
+			new PageOption("Back", 0, "Gameplay"),
+			new BoolOption("Notes Per Second", "notesperSecond", 1),
+			new BoolOption("Score Text Zoom on Hit", "scoreZoom", 2),
+			new BoolOption("Time Bar Colors", "barColors", 3), // thx Vortex2Oblivion
+			new StringSaveOption("Icon Bounce", ["Default","Golden Apple","BEAT Engine"], 4, "iconBounce")
 		]
 	];
 
@@ -239,16 +235,18 @@ class OptionsMenu extends MusicBeatState
 		menuBG.setGraphicSize(Std.int(menuBG.width * 1.1));
 		menuBG.updateHitbox();
 		menuBG.screenCenter();
-		menuBG.antialiasing = true;
+		menuBG.antialiasing = utilities.Options.getData("antialiasing");
 		add(menuBG);
 
 		gradientBar = FlxGradient.createGradientFlxSprite(Math.round(FlxG.width), 512, [0x00ff0000, 0x558DE7E5, 0xAAE6F0A9], 1, 90, true);
 		gradientBar.y = FlxG.height - gradientBar.height;
+		gradientBar.antialiasing = utilities.Options.getData("antialiasing");
 		add(gradientBar);
 		gradientBar.scrollFactor.set(0, 0);
 
 		add(checker);
 		checker.scrollFactor.set(0, 0.07);
+		checker.antialiasing = utilities.Options.getData("antialiasing");
 
 		super.create();
 

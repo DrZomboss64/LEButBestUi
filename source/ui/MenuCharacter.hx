@@ -39,6 +39,7 @@ class MenuCharacter extends FlxSprite
 	
 			animation.addByPrefix("idle", characterData.Animation_Name, characterData.FPS, characterData.Animation_Looped);
 			animation.play("idle");
+			antialiasing = utilities.Options.getData("antialiasing");
 	
 			setGraphicSize(Std.int(width * characterData.Size));
 			updateHitbox();

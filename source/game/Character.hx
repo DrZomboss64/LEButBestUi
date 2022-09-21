@@ -58,7 +58,7 @@ class Character extends FlxSprite
 		this.isPlayer = isPlayer;
 		this.isDeathCharacter = isDeathCharacter;
 
-		antialiasing = true;
+		antialiasing = utilities.Options.getData("antialiasing");
 
 		dancesLeftAndRight = false;
 

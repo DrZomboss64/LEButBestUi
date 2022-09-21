@@ -19,6 +19,7 @@ class Checkbox extends FlxSprite
 
         animation.play("static");
 
+        antialiasing = utilities.Options.getData("antialiasing");
         updateHitbox();
 
         this.sprTracker = tracking;

@@ -771,6 +771,7 @@ class PlayState extends MusicBeatState
 				scoreTxt.borderSize = 1.25;
 
 			add(scoreTxt);
+            
 
 			var infoTxtSize:Int = utilities.Options.getData("biggerInfoText") ? 20 : 16;
 
@@ -2083,13 +2084,13 @@ class PlayState extends MusicBeatState
 		iconP1.updateHitbox();
 		iconP2.updateHitbox();
 
-		iconP1.scale.set(CoolUtil.boundTo(iconP1.scale.x, Math.NEGATIVE_INFINITY, iconP1.startSize + 0.2),
+		/*iconP1.scale.set(CoolUtil.boundTo(iconP1.scale.x, Math.NEGATIVE_INFINITY, iconP1.startSize + 0.2),
 			CoolUtil.boundTo(iconP1.scale.y, Math.NEGATIVE_INFINITY, iconP1.startSize + 0.2));
 		iconP2.scale.set(CoolUtil.boundTo(iconP2.scale.x, Math.NEGATIVE_INFINITY, iconP2.startSize + 0.2),
 			CoolUtil.boundTo(iconP2.scale.y, Math.NEGATIVE_INFINITY, iconP2.startSize + 0.2));
 
 		iconP1.updateHitbox();
-		iconP2.updateHitbox();
+		iconP2.updateHitbox();		
 
 		var iconOffset:Int = 26;
 
@@ -2097,7 +2098,63 @@ class PlayState extends MusicBeatState
 		iconP2.x = healthBar.x
 			+ (healthBar.width * (FlxMath.remapToRange(healthBar.percent, 0, 100, 100, 0) * 0.01))
 			- (iconP2.width - iconOffset)
-			- iconP2.offsetX;
+			- iconP2.offsetX;*/
+
+
+			switch(utilities.Options.getData("iconBounce"))
+			{
+				case 'Default':
+					var mult:Float = FlxMath.lerp(1, iconP1.scale.x, CoolUtil.boundTo(1 - (elapsed * 9), 0, 1));
+					iconP1.scale.set(mult, mult);
+					iconP1.updateHitbox();
+		
+					var mult:Float = FlxMath.lerp(1, iconP2.scale.x, CoolUtil.boundTo(1 - (elapsed * 9), 0, 1));
+					iconP2.scale.set(mult, mult);
+					iconP2.updateHitbox();
+		
+					var iconOffset:Int = 26;
+		
+					iconP1.x = healthBar.x + (healthBar.width * (FlxMath.remapToRange(healthBar.percent, 0, 100, 100, 0) * 0.01)) + (150 * iconP1.scale.x - 150) / 2 - iconOffset;
+					iconP2.x = healthBar.x + (healthBar.width * (FlxMath.remapToRange(healthBar.percent, 0, 100, 100, 0) * 0.01)) - (150 * iconP2.scale.x) / 2 - iconOffset * 2;
+
+					iconP1.y = healthBar.y - (iconP1.height / 2) - iconP1.offsetY;
+					iconP2.y = healthBar.y - (iconP2.height / 2) - iconP2.offsetY;
+							
+				case 'Golden Apple':
+					iconP1.centerOffsets();
+					iconP2.centerOffsets();
+		
+					iconP1.updateHitbox();
+					iconP2.updateHitbox();
+		
+					var iconOffset:Int = 26;
+		
+					iconP1.x = healthBar.x + (healthBar.width * (FlxMath.remapToRange(healthBar.percent, 0, 100, 100, 0) * 0.01) - iconOffset);
+					iconP2.x = healthBar.x + (healthBar.width * (FlxMath.remapToRange(healthBar.percent, 0, 100, 100, 0) * 0.01)) - (iconP2.width - iconOffset);
+
+					iconP1.y = healthBar.y - (iconP1.height / 2) - iconP1.offsetY;
+					iconP2.y = healthBar.y - (iconP2.height / 2) - iconP2.offsetY;
+				case 'BEAT Engine':
+					var mult:Float = FlxMath.lerp(1, iconP1.scale.x, CoolUtil.boundTo(1 - (elapsed * 9), 0, 1));
+					iconP1.scale.set(mult, mult);
+					iconP1.updateHitbox();
+
+					var mult:Float = FlxMath.lerp(1, iconP2.scale.x, CoolUtil.boundTo(1 - (elapsed * 9), 0, 1));
+					iconP2.scale.set(mult, mult);
+					iconP2.updateHitbox();
+
+					var iconOffset:Int = 26;
+
+					iconP1.x = healthBar.x + (healthBar.width * (FlxMath.remapToRange(healthBar.percent, 0, 100, 100, 0) * 0.01) - iconOffset) - iconP1.offsetX;
+					iconP2.x = healthBar.x
+					+ (healthBar.width * (FlxMath.remapToRange(healthBar.percent, 0, 100, 100, 0) * 0.01))
+					- (iconP2.width - iconOffset)
+					- iconP2.offsetX;
+
+					iconP1.y = healthBar.y - (iconP1.height / 2) - iconP1.offsetY;
+					iconP2.y = healthBar.y - (iconP2.height / 2) - iconP2.offsetY;
+			}
+		
 
 		if (utilities.Options.getData("cameraZooms") && camZooming && !switchedStates)
 		{
@@ -3235,6 +3292,7 @@ class PlayState extends MusicBeatState
 
 		if ((daRating == "sick" || daRating == "marvelous") && utilities.Options.getData("playerNoteSplashes"))
 		{
+			if(utilities.Options.getData("scoreZoom")) {
             if(scoreTxtTween != null) 
             {
                 scoreTxtTween.cancel();
@@ -3247,6 +3305,7 @@ class PlayState extends MusicBeatState
                     scoreTxtTween = null;
                 }
             });
+		    }
 
 			playerStrums.forEachAlive(function(spr:FlxSprite)
 			{
@@ -4265,6 +4324,59 @@ class PlayState extends MusicBeatState
 
 		if (curBeat % gfSpeed == 0 && !dad.curCharacter.startsWith('gf'))
 			gf.dance();
+
+		if(utilities.Options.getData("iconBounce") == "BEAT Engine")
+		{
+			var funny:Float = (healthBar.percent * 0.01) + 0.01;
+
+			if (curBeat % gfSpeed == 0)
+			{
+				curBeat % (gfSpeed * 2) == 0 ? {
+				iconP1.scale.set(1.1, 0.8);
+				iconP2.scale.set(1.1, 1.3);
+
+				FlxTween.angle(iconP1, -15, 0, Conductor.crochet / 1300 * gfSpeed, {ease: FlxEase.quadOut});
+				FlxTween.angle(iconP2, 15, 0, Conductor.crochet / 1300 * gfSpeed, {ease: FlxEase.quadOut});
+			} : {
+				iconP1.scale.set(1.1, 1.3);
+				iconP2.scale.set(1.1, 0.8);
+
+				FlxTween.angle(iconP2, -15, 0, Conductor.crochet / 1300 * gfSpeed, {ease: FlxEase.quadOut});
+				FlxTween.angle(iconP1, 15, 0, Conductor.crochet / 1300 * gfSpeed, {ease: FlxEase.quadOut});
+			}
+
+				FlxTween.tween(iconP1, {'scale.x': 1, 'scale.y': 1}, Conductor.crochet / 1250 * gfSpeed, {ease: FlxEase.quadOut});
+				FlxTween.tween(iconP2, {'scale.x': 1, 'scale.y': 1}, Conductor.crochet / 1250 * gfSpeed, {ease: FlxEase.quadOut});
+
+				iconP1.updateHitbox();
+				iconP2.updateHitbox();
+			}
+		}
+
+		if(utilities.Options.getData("iconBounce") == "Golden Apple")
+		{
+			var funny:Float = (healthBar.percent * 0.01) + 0.01;
+		
+			//funny dave and bambi
+			if (curBeat % gfSpeed == 0) {
+				curBeat % (gfSpeed * 2) == 0 ? {
+					iconP1.scale.set(1.1, 0.8);
+					iconP2.scale.set(1.1, 1.3);
+	
+					FlxTween.angle(iconP1, -15, 0, Conductor.crochet / 1300 * gfSpeed, {ease: FlxEase.quadOut});
+					FlxTween.angle(iconP2, 15, 0, Conductor.crochet / 1300 * gfSpeed, {ease: FlxEase.quadOut});
+				} : {
+					iconP1.scale.set(1.1, 1.3);
+					iconP2.scale.set(1.1, 0.8);
+	
+					FlxTween.angle(iconP2, -15, 0, Conductor.crochet / 1300 * gfSpeed, {ease: FlxEase.quadOut});
+					FlxTween.angle(iconP1, 15, 0, Conductor.crochet / 1300 * gfSpeed, {ease: FlxEase.quadOut});
+				}
+	
+				FlxTween.tween(iconP1, {'scale.x': 1, 'scale.y': 1}, Conductor.crochet / 1250 * gfSpeed, {ease: FlxEase.quadOut});
+				FlxTween.tween(iconP2, {'scale.x': 1, 'scale.y': 1}, Conductor.crochet / 1250 * gfSpeed, {ease: FlxEase.quadOut});
+			}
+		}
 
 		if (dad.animation.curAnim != null)
 			if (curBeat % gfSpeed == 0

@@ -30,6 +30,7 @@ class NoteSplash extends FlxSprite
 		}
 
 		graphic.destroyOnNoUse = false;
+		antialiasing = utilities.Options.getData("antialiasing");
 
 		animation.addByPrefix("default", "note splash " + NoteVariables.Other_Note_Anim_Stuff[localKeyCount - 1][noteData] + "0", FlxG.random.int(22, 26),
 			false);

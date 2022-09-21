@@ -91,7 +91,7 @@ class MainPlayState extends MusicBeatState
 		bg.setGraphicSize(Std.int(bg.width * 1.179));
 		bg.updateHitbox();
 		bg.screenCenter();
-		bg.antialiasing = true;
+		bg.antialiasing = utilities.Options.getData("antialiasing");
 		add(bg);
 
 		camFollow = new FlxObject(0, 0, 1, 1);
@@ -109,6 +109,7 @@ class MainPlayState extends MusicBeatState
 		magenta.setGraphicSize(Std.int(magenta.width * 1.179));
 		magenta.updateHitbox();
 		magenta.screenCenter();
+		magenta.antialiasing = utilities.Options.getData("antialiasing");
 		magenta.visible = false;
 		magenta.antialiasing = true;
 		magenta.color = 0xFFfd719b;
@@ -118,16 +119,19 @@ class MainPlayState extends MusicBeatState
 		background2.scrollFactor.set();
 		background2.screenCenter();
 		background2.visible = false;
+		background2.antialiasing = utilities.Options.getData("antialiasing");
 		background2.color = FlxColor.MAGENTA;
 		add(background2);
 
 		gradientBar = FlxGradient.createGradientFlxSprite(Math.round(FlxG.width), 512, [0x00ff0000, 0x558DE7E5, 0xAAE6F0A9], 1, 90, true);
 		gradientBar.y = FlxG.height - gradientBar.height;
+		gradientBar.antialiasing = utilities.Options.getData("antialiasing");
 		add(gradientBar);
 		gradientBar.scrollFactor.set(0, 0);
 
 		add(checker);
 		checker.scrollFactor.set(0, 0.07);
+		checker.antialiasing = utilities.Options.getData("antialiasing");
 
 		menuItems = new FlxTypedGroup<FlxSprite>();
 		add(menuItems);
@@ -144,6 +148,7 @@ class MainPlayState extends MusicBeatState
 			menuItem.animation.addByPrefix('idle', optionShit[i] + " basic", 24);
 			menuItem.animation.addByPrefix('selected', optionShit[i] + " white", 24);
 			menuItem.animation.play('idle');
+			menuItem.antialiasing = utilities.Options.getData("antialiasing");
 			menuItem.ID = i;
 			menuItem.screenCenter(X);
 			menuItems.add(menuItem);
@@ -175,6 +180,7 @@ class MainPlayState extends MusicBeatState
 			logoBl.antialiasing = true;
 			logoBl.animation.addByPrefix('bump', 'logo bumpin', 24);
 			logoBl.animation.play('bump');
+			logoBl.antialiasing = utilities.Options.getData("antialiasing");
 			logoBl.setGraphicSize(Std.int(logoBl.width * 0.5));
 			logoBl.alpha = 0;
 			logoBl.angle = -4;
@@ -302,6 +308,7 @@ class MainPlayState extends MusicBeatState
 			char.frames = Paths.getSparrowAtlas('characters/3d leather pog', 'shared');//here put the name of the xml
 			char.animation.addByPrefix('idleLE', 'Idle instance 1', 24, true);//on 'idle normal' change it to your xml one
 			char.animation.play('idleLE');//you can rename the anim however you want to
+			char.antialiasing = utilities.Options.getData("antialiasing");
 			char.scrollFactor.set();
 			char.flipX = false;//this is for flipping it to look left instead of right you can make it however you want
 			add(char);
@@ -311,6 +318,7 @@ class MainPlayState extends MusicBeatState
 			char.frames = Paths.getSparrowAtlas('characters/totally not ron', 'shared');
 			char.animation.addByPrefix('idleR', 'Idle instance 1', 24, true);
 			char.animation.play('idleR');
+			char.antialiasing = utilities.Options.getData("antialiasing");
 			char.scrollFactor.set();
 			add(char);
               
@@ -319,6 +327,7 @@ class MainPlayState extends MusicBeatState
 			char.frames = Paths.getSparrowAtlas('characters/tankmanCaptain', 'shared');
 			char.animation.addByPrefix('idleT', 'Tankman Idle Dance instance 1', 24, true);
 			char.animation.play('idleT');
+			char.antialiasing = utilities.Options.getData("antialiasing");
 			char.scrollFactor.set();
 			char.flipX = true;
 			add(char);
@@ -328,6 +337,7 @@ class MainPlayState extends MusicBeatState
 			char.frames = Paths.getSparrowAtlas('characters/spooky_kids_assets', 'shared');
 			char.animation.addByPrefix('idleSK', 'spooky dance idle', 24, true);
 			char.animation.play('idleSK');
+			char.antialiasing = utilities.Options.getData("antialiasing");
 			char.scrollFactor.set();
 			char.flipX = false;
 			add(char);
@@ -337,6 +347,7 @@ class MainPlayState extends MusicBeatState
 			char.frames = Paths.getSparrowAtlas('characters/DADDY_DEAREST', 'shared');
 			char.animation.addByPrefix('idleDAD', 'Dad idle dance', 24, true);
 			char.animation.play('idleDAD');
+			char.antialiasing = utilities.Options.getData("antialiasing");
 			char.scrollFactor.set();
 			char.flipX = false;
 			add(char);
@@ -346,6 +357,7 @@ class MainPlayState extends MusicBeatState
 			char.frames = Paths.getSparrowAtlas('characters/Pico_FNF_assetss', 'shared');
 			char.animation.addByPrefix('idleP', 'Pico Idle Dance', 24, true);
 			char.animation.play('idleP');
+			char.antialiasing = utilities.Options.getData("antialiasing");
 			char.scrollFactor.set();
 			char.flipX = true;
 			add(char);
@@ -355,6 +367,7 @@ class MainPlayState extends MusicBeatState
 			char.frames = Paths.getSparrowAtlas('characters/bfAndGF', 'shared');
 			char.animation.addByPrefix('idleBG', 'BF idle dance w gf', 24, true);
 			char.animation.play('idleBG');
+			char.antialiasing = utilities.Options.getData("antialiasing");
 			char.scrollFactor.set();
 			char.flipX = true;
 			add(char);
@@ -394,6 +407,7 @@ class MainPlayState extends MusicBeatState
 			char.frames = Paths.getSparrowAtlas('characters/mom_dad_christmas_assets', 'shared');
 			char.animation.addByPrefix('idlePC', 'Parent Christmas Idle', 24, true);
 			char.animation.play('idlePC');
+			char.antialiasing = utilities.Options.getData("antialiasing");
 			char.scrollFactor.set();
 			char.flipX = false;
 			add(char);
@@ -413,6 +427,7 @@ class MainPlayState extends MusicBeatState
 			char.frames = Paths.getSparrowAtlas('characters/Monster_Assets', 'shared');
 			char.animation.addByPrefix('idleM', 'monster idle', 24, true);
 			char.animation.play('idleM');
+			char.antialiasing = utilities.Options.getData("antialiasing");
 			char.scrollFactor.set();
 			char.flipX = false;
 			add(char);
@@ -422,6 +437,7 @@ class MainPlayState extends MusicBeatState
 			char.frames = Paths.getSparrowAtlas('characters/Mom_Assets', 'shared');
 			char.animation.addByPrefix('idleMM', 'Mom Idle', 24, true);
 			char.animation.play('idleMM');
+			char.antialiasing = utilities.Options.getData("antialiasing");
 			char.scrollFactor.set();
 			char.flipX = false;
 			add(char);
@@ -431,6 +447,7 @@ class MainPlayState extends MusicBeatState
 			char.frames = Paths.getSparrowAtlas('characters/GF_assets', 'shared');
 			char.animation.addByPrefix('idleGF', 'GF Dancing Beat0', 24, true);
 			char.animation.play('idleGF');
+			char.antialiasing = utilities.Options.getData("antialiasing");
 			char.scrollFactor.set();
 			char.flipX = false;
 			add(char);

@@ -190,7 +190,7 @@ class TitleState extends MusicBeatState
 		if (utilities.Options.getData("oldTitle"))
 		{
 			bg.loadGraphic(Paths.image("title/stageback"));
-			bg.antialiasing = true;
+			bg.antialiasing = utilities.Options.getData("antialiasing");
 			bg.setGraphicSize(Std.int(FlxG.width * 1.1));
 			bg.updateHitbox();
 			bg.screenCenter();
@@ -204,7 +204,7 @@ class TitleState extends MusicBeatState
 		{
 			old_logo = new FlxSprite().loadGraphic(Paths.image('title/logo'));
 			old_logo.screenCenter();
-			old_logo.antialiasing = true;
+			old_logo.antialiasing = utilities.Options.getData("antialiasing");
 
 			old_logo_black = new FlxSprite().loadGraphicFromSprite(old_logo);
 			old_logo_black.screenCenter();
@@ -219,7 +219,7 @@ class TitleState extends MusicBeatState
 			else
 				logoBl.frames = Paths.getSparrowAtlas('title/logoBumpin');
 
-			logoBl.antialiasing = true;
+			logoBl.antialiasing = utilities.Options.getData("antialiasing");
 			logoBl.animation.addByPrefix('bump', 'logo bumpin', 24);
 			logoBl.animation.play('bump');
 			logoBl.updateHitbox();
@@ -229,13 +229,13 @@ class TitleState extends MusicBeatState
 		gfDance.frames = Paths.getSparrowAtlas('title/gfDanceTitle');
 		gfDance.animation.addByIndices('danceLeft', 'gfDance', [30, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14], "", 24, false);
 		gfDance.animation.addByIndices('danceRight', 'gfDance', [15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29], "", 24, false);
-		gfDance.antialiasing = true;
+		gfDance.antialiasing = utilities.Options.getData("antialiasing");
 
 		titleText = new FlxSprite(100, FlxG.height * 0.8);
 		titleText.frames = Paths.getSparrowAtlas('title/titleEnter');
 		titleText.animation.addByPrefix('idle', "Press Enter to Begin", 24);
 		titleText.animation.addByPrefix('press', "ENTER PRESSED", 24);
-		titleText.antialiasing = true;
+		titleText.antialiasing = utilities.Options.getData("antialiasing");
 		titleText.animation.play('idle');
 		titleText.updateHitbox();
 
@@ -268,7 +268,7 @@ class TitleState extends MusicBeatState
 		ngSpr.setGraphicSize(Std.int(ngSpr.width * 0.8));
 		ngSpr.updateHitbox();
 		ngSpr.screenCenter(X);
-		ngSpr.antialiasing = true;
+		ngSpr.antialiasing = utilities.Options.getData("antialiasing");
 
 		gradientBar = FlxGradient.createGradientFlxSprite(Math.round(FlxG.width), 512, [0x00ff0000, 0x553D0468, 0xAABF1943], 1, 90, true);
 		gradientBar.y = FlxG.height - gradientBar.height;

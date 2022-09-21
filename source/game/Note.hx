@@ -91,6 +91,7 @@ class Note extends FlxSprite
 		}
 
 		frames = PlayState.instance.arrow_Type_Sprites.get(arrow_Type);
+		antialiasing = utilities.Options.getData("antialiasing");
 
 		animation.addByPrefix("default", NoteVariables.Other_Note_Anim_Stuff[localKeyCount - 1][noteData] + "0", 24);
 		animation.addByPrefix("hold", NoteVariables.Other_Note_Anim_Stuff[localKeyCount - 1][noteData] + " hold0", 24);

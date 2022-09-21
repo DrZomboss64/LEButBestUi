@@ -69,7 +69,7 @@ class MainMenuState extends MusicBeatState
 		bg.setGraphicSize(Std.int(bg.width * 1.1));
 		bg.updateHitbox();
 		bg.screenCenter();
-		bg.antialiasing = true;
+		bg.antialiasing = utilities.Options.getData("antialiasing");
 		add(bg);
 
 		camFollow = new FlxObject(0, 0, 1, 1);
@@ -77,16 +77,18 @@ class MainMenuState extends MusicBeatState
 
 		gradientBar = FlxGradient.createGradientFlxSprite(Math.round(FlxG.width), 512, [0x00ff0000, 0x55AE59E4, 0xAA19ECFF], 1, 90, true);
 		gradientBar.y = FlxG.height - gradientBar.height;
+		gradientBar.antialiasing = utilities.Options.getData("antialiasing");
 		add(gradientBar);
 		gradientBar.scrollFactor.set(0, 0);
 
 		add(checker);
 		checker.scrollFactor.set(0, 0.07);
+		checker.antialiasing = utilities.Options.getData("antialiasing");
 
 		var side:FlxSprite = new FlxSprite(0).loadGraphic(Paths.image('Theme/Main/Main_Side'));
 		side.scrollFactor.x = 0;
 		side.scrollFactor.y = 0;
-		side.antialiasing = true;
+		side.antialiasing = utilities.Options.getData("antialiasing");
 		add(side);
 
 		menuItems = new FlxTypedGroup<FlxSprite>();
@@ -105,7 +107,7 @@ class MainMenuState extends MusicBeatState
 			FlxTween.tween(menuItem, {x: menuItem.width / 4 + (i * 210) - 30}, 1.3, {ease: FlxEase.expoInOut});
 			menuItems.add(menuItem);
 			menuItem.scrollFactor.set();
-			menuItem.antialiasing = true;
+			menuItem.antialiasing = utilities.Options.getData("antialiasing");
 			menuItem.scale.set(0.8, 0.8);
 			menuItem.updateHitbox();
 		}

@@ -23,7 +23,8 @@ class MenuItem extends FlxSpriteGroup
 		super(x, y);
 
 		week = new FlxSprite().loadGraphic(Paths.image('campaign menu/weeks/' + weekFolder + "/" + weekName));
-
+		antialiasing = utilities.Options.getData("antialiasing");
+		
 		add(week);
 	}
 
